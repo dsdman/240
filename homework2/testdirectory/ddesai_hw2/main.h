@@ -19,10 +19,7 @@ using namespace std;
 #include "../../Utilities/scanline.h"
 
 //functions
-#ifdef PARTB
-double GetMaxValue(vector<double> input);
-double GetMinValue(vector<double> input);
-#endif // PARTB
+double GetMaxValue(vector<double> &input);
+double GetMinValue(vector<double> &input);
 
 #endif // MAIN_H
-

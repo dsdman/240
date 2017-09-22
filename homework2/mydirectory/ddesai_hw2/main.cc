@@ -9,6 +9,9 @@
  *
 **/
 
+//FORMATTING
+//Utils::Format(x,y) calls the 
+//X is value 1, y is the spacing of the thing
 int main(int argc, char *argv[]) {
   /*
    *VARIABLES
@@ -17,7 +20,7 @@ int main(int argc, char *argv[]) {
   double input = 0.0;
   double max_distance = 0.0;
   double min_distance = 0.0;
-  
+
   //populate vector with double values for input and display values back
   for (int i = 0; i < 20; ++i) { 
     cout << "Inputting value number " << i+1 << endl;
@@ -29,25 +32,21 @@ int main(int argc, char *argv[]) {
     cout << "value at index " << i << ": "<< input_nums.at(i) << endl;
   }
 
-  //PART B OF ASSIGNMENT
   //get and display the max and min values
-  #ifdef PARTB
   max_distance = GetMaxValue(input_nums);
   min_distance = GetMinValue(input_nums);
-  #endif //PARTB
   cout << endl;
   cout << "MAX VALUE IS " << max_distance << endl;
   cout << "MIN VALUE IS " << min_distance << endl;
   return 0;
 }
 
-//PART B OF ASSIGNMENT
-#ifdef PARTB
-double GetMaxValue(vector<double> input) {
+double GetMaxValue(vector<double> &input) {
   double out = 0.0;
   
   //sort the vector and calculate the max value as the absolute value of the
-  //difference between the smallest (index 0) and largest(last index) value
+  //difference between the smallest (index 0) and largest(last index) value.
+  //Note that the code to sort was derived from cplusplus.com
   sort(input.begin(), input.end());
   out = (input.at(0)) - (input.at(input.size() -1));
   out = abs(out);
@@ -55,7 +54,7 @@ double GetMaxValue(vector<double> input) {
   return out;
 }
 
-double GetMinValue(vector<double> input) { 
+double GetMinValue(vector<double> &input) { 
   /*
    *VARIABLES
    */
@@ -66,10 +65,9 @@ double GetMinValue(vector<double> input) {
   //index) and maximum (last index) values in the triple, then subtract the
   //maximum from the minimum to get the temporary minimum. If that minimum is 
   //less than the current minimum, then it is the new minimum
-  sort(input.begin(), input.end());
-  for (int i = 0; i < input.size(); ++i) {
-    for (int j = i + 1; j < input.size(); ++j) {
-      for (int k = j + 1; k < input.size(); ++k) {
+  for (int i = 0; i < input.size()-3; ++i) {
+    for (int j = i + 1; j < input.size()-2; ++j) {
+      for (int k = j + 1; k < input.size()-1; ++k) {
         temp_min = abs(input.at(k) - input.at(i));
         //cout << "New temp min is: " << temp_min << endl;
         if (out == 0.0) {
@@ -84,4 +82,3 @@ double GetMinValue(vector<double> input) {
   }
   return out;
 }
-#endif //PARTB

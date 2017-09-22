@@ -40,5 +40,5 @@ value at index 17: 10.373
 value at index 18: 99.611
 value at index 19: 27.134
 
-MAX VALUE IS 0
-MIN VALUE IS 0
+MAX VALUE IS 188.231
+MIN VALUE IS 3.639
