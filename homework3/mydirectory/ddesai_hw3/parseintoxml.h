@@ -31,24 +31,25 @@ using namespace std;
 //Functions
 class ParseIntoXML {
   public:
+    //constructor and deconstructor
     ParseIntoXML(); 
     virtual ~ParseIntoXML();
 
+    //functions that read data and do the parsing
     void ParseTheFile(Scanner& in_scanner);
 
   private:
-    //returns a vector containing data from an opened scanner
-    vector<string> ReadData(Scanner& file_scanner);
-    //adds space after paren from an opened line scanner
-    string SplitParen(ScanLine& line);
-    //checks whether a string contains a substring
-    bool Contains(const string& the_string, const string& substring);
-    //returns the index of the beginning of the a substring
-    int IndexOf(const string& the_string, const string& substring);
-    string FilterInput(string& the_string);
+    //cleans up the string
+    string FilterInput(const string& the_string);
+    //intuitive replace function
     string Replace(string the_string, string old_string, string new_string); 
+    //returns the "pretty" string of xml given a vector of data
     string ToStringXML(vector<XMLItem> the_vector) const;
+    //splits a string into tolkens
     vector<string> Split(string in_string) const;
+    //reads the data from a file opened from a scanner
+    vector<string> ReadData(Scanner& file_scanner);
+    //returns vector of data from a string
     vector<XMLItem> XMLize(string in_string) const;
 };
 #endif
