@@ -1,0 +1,1 @@
+        <parse>(ROOT (S (SBAR (IN As) (S (NP (NNP Gregor) (NNP Samsa)) (VP (VBD awoke) (NP (CD one)) (NP-TMP (NN morning)) (PP (IN from) (NP (JJ uneasy) (NNS dreams)))))) (NP (PRP he)) (VP (VBD found) (SBAR (S (NP (PRP himself)) (VP (VBN transformed) (PP (IN in) (NP (PRP$ his) (NN bed))) (PP (IN into) (NP (DT a) (JJ monstrous) (NN vermin))))))) (. .))) </parse>

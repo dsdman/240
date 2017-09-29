@@ -1,0 +1,1184 @@
+UTILS: open the logfile 'zzuulog'
+UTILS: open succeeded for 'zzuulog'
+UTILS: open the input file '../../zzuu.txt'
+UTILS: open succeeded for '../../zzuu.txt'
+ORIGINAL<parse>(ROOT (S (NP (PRP We)) (PP (IN as) (NP (JJ human) (NNS beings))) (VP (VBP are) (VP (VBN born) (PP (IN with) (NP (DT an) (JJ insatiable) (NN curiosity))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( PRP We )  )   ( PP  ( IN as )   ( NP  ( JJ human )   ( NNS beings )  )  )   ( VP  ( VBP are )   ( VP  ( VBN born )   ( PP  ( IN with )   ( NP  ( DT an )   ( JJ insatiable )   ( NN curiosity )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <PRP level="4">
+          We
+        </PRP>
+      </NP>
+      <PP level="3">
+        <IN level="4">
+          as
+        </IN>
+        <NP level="4">
+          <JJ level="5">
+            human
+          </JJ>
+          <NNS level="5">
+            beings
+          </NNS>
+        </NP>
+      </PP>
+      <VP level="3">
+        <VBP level="4">
+          are
+        </VBP>
+        <VP level="4">
+          <VBN level="5">
+            born
+          </VBN>
+          <PP level="5">
+            <IN level="6">
+              with
+            </IN>
+            <NP level="6">
+              <DT level="7">
+                an
+              </DT>
+              <JJ level="7">
+                insatiable
+              </JJ>
+              <NN level="7">
+                curiosity
+              </NN>
+            </NP>
+          </PP>
+        </VP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (PRP We)) (VP (VBP have) (NP (DT an) (JJ innate) (NN yearning) (S (VP (TO to) (VP (VB explore) (NP (DT the) (NN world)) (PP (IN around) (NP (PRP us)))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( PRP We )  )   ( VP  ( VBP have )   ( NP  ( DT an )   ( JJ innate )   ( NN yearning )   ( S  ( VP  ( TO to )   ( VP  ( VB explore )   ( NP  ( DT the )   ( NN world )  )   ( PP  ( IN around )   ( NP  ( PRP us )  )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <PRP level="4">
+          We
+        </PRP>
+      </NP>
+      <VP level="3">
+        <VBP level="4">
+          have
+        </VBP>
+        <NP level="4">
+          <DT level="5">
+            an
+          </DT>
+          <JJ level="5">
+            innate
+          </JJ>
+          <NN level="5">
+            yearning
+          </NN>
+          <S level="5">
+            <VP level="6">
+              <TO level="7">
+                to
+              </TO>
+              <VP level="7">
+                <VB level="8">
+                  explore
+                </VB>
+                <NP level="8">
+                  <DT level="9">
+                    the
+                  </DT>
+                  <NN level="9">
+                    world
+                  </NN>
+                </NP>
+                <PP level="8">
+                  <IN level="9">
+                    around
+                  </IN>
+                  <NP level="9">
+                    <PRP level="10">
+                      us
+                    </PRP>
+                  </NP>
+                </PP>
+              </VP>
+            </VP>
+          </S>
+        </NP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (DT This) (NN curiosity)) (VP (VP (VBZ is) (ADJP (JJ evident) (PP (IN throughout) (NP (NP (NNP Don) (NNP DeLillo) (POS 's)) (`` ``) (NP (NN Videotape)) ('' '')))) (PP (CC both) (IN in) (NP (NP (DT the) (NN girl)) (PP (IN behind) (NP (NP (DT the) (NN camera)) (CC and) (NP (NP (DT the) (NN narrator) (POS 's)) (JJ own) (NNS thoughts))))))) (CC and) (VP (VBZ leaves) (NP (NP (DT the) (NN reader)) (PP (IN with) (NP (JJ many) (NNS questions)))) (S (VP (TO to) (VP (VB ponder)))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( DT This )   ( NN curiosity )  )   ( VP  ( VP  ( VBZ is )   ( ADJP  ( JJ evident )   ( PP  ( IN throughout )   ( NP  ( NP  ( NNP Don )   ( NNP DeLillo )   ( POS 's )  )   ( QUOTE QUOTE )   ( NP  ( NN Videotape )  )   ( QUOTE QUOTE )  )  )  )   ( PP  ( CC both )   ( IN in )   ( NP  ( NP  ( DT the )   ( NN girl )  )   ( PP  ( IN behind )   ( NP  ( NP  ( DT the )   ( NN camera )  )   ( CC and )   ( NP  ( NP  ( DT the )   ( NN narrator )   ( POS 's )  )   ( JJ own )   ( NNS thoughts )  )  )  )  )  )  )   ( CC and )   ( VP  ( VBZ leaves )   ( NP  ( NP  ( DT the )   ( NN reader )  )   ( PP  ( IN with )   ( NP  ( JJ many )   ( NNS questions )  )  )  )   ( S  ( VP  ( TO to )   ( VP  ( VB ponder )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <DT level="4">
+          This
+        </DT>
+        <NN level="4">
+          curiosity
+        </NN>
+      </NP>
+      <VP level="3">
+        <VP level="4">
+          <VBZ level="5">
+            is
+          </VBZ>
+          <ADJP level="5">
+            <JJ level="6">
+              evident
+            </JJ>
+            <PP level="6">
+              <IN level="7">
+                throughout
+              </IN>
+              <NP level="7">
+                <NP level="8">
+                  <NNP level="9">
+                    Don
+                  </NNP>
+                  <NNP level="9">
+                    DeLillo
+                  </NNP>
+                  <POS level="9">
+                    's
+                  </POS>
+                </NP>
+                <QUOTE level="8">
+                  QUOTE
+                </QUOTE>
+                <NP level="8">
+                  <NN level="9">
+                    Videotape
+                  </NN>
+                </NP>
+                <QUOTE level="8">
+                  QUOTE
+                </QUOTE>
+              </NP>
+            </PP>
+          </ADJP>
+          <PP level="5">
+            <CC level="6">
+              both
+            </CC>
+            <IN level="6">
+              in
+            </IN>
+            <NP level="6">
+              <NP level="7">
+                <DT level="8">
+                  the
+                </DT>
+                <NN level="8">
+                  girl
+                </NN>
+              </NP>
+              <PP level="7">
+                <IN level="8">
+                  behind
+                </IN>
+                <NP level="8">
+                  <NP level="9">
+                    <DT level="10">
+                      the
+                    </DT>
+                    <NN level="10">
+                      camera
+                    </NN>
+                  </NP>
+                  <CC level="9">
+                    and
+                  </CC>
+                  <NP level="9">
+                    <NP level="10">
+                      <DT level="11">
+                        the
+                      </DT>
+                      <NN level="11">
+                        narrator
+                      </NN>
+                      <POS level="11">
+                        's
+                      </POS>
+                    </NP>
+                    <JJ level="10">
+                      own
+                    </JJ>
+                    <NNS level="10">
+                      thoughts
+                    </NNS>
+                  </NP>
+                </NP>
+              </PP>
+            </NP>
+          </PP>
+        </VP>
+        <CC level="4">
+          and
+        </CC>
+        <VP level="4">
+          <VBZ level="5">
+            leaves
+          </VBZ>
+          <NP level="5">
+            <NP level="6">
+              <DT level="7">
+                the
+              </DT>
+              <NN level="7">
+                reader
+              </NN>
+            </NP>
+            <PP level="6">
+              <IN level="7">
+                with
+              </IN>
+              <NP level="7">
+                <JJ level="8">
+                  many
+                </JJ>
+                <NNS level="8">
+                  questions
+                </NNS>
+              </NP>
+            </PP>
+          </NP>
+          <S level="5">
+            <VP level="6">
+              <TO level="7">
+                to
+              </TO>
+              <VP level="7">
+                <VB level="8">
+                  ponder
+                </VB>
+              </VP>
+            </VP>
+          </S>
+        </VP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (SBARQ (WHADVP (WRB Why)) (SQ (VBD was) (NP (DT the) (NN girl)) (VP (VBG filming) (NP (DT this) (JJ bald) (, ,) (JJ middle-aged) (NN man)) (S (VP (VBG driving) (PRT (RP down)) (NP (DT the) (NN highway)))))) (. ?))) </parse>
+FILTERED  ( ROOT  ( SBARQ  ( WHADVP  ( WRB Why )  )   ( SQ  ( VBD was )   ( NP  ( DT the )   ( NN girl )  )   ( VP  ( VBG filming )   ( NP  ( DT this )   ( JJ bald )   ( COMMA COMMA )   ( JJ middle-aged )   ( NN man )  )   ( S  ( VP  ( VBG driving )   ( PRT  ( RP down )  )   ( NP  ( DT the )   ( NN highway )  )  )  )  )  )   ( PERIOD QUESTION )  )  )  
+
+  <ROOT level="1">
+    <SBARQ level="2">
+      <WHADVP level="3">
+        <WRB level="4">
+          Why
+        </WRB>
+      </WHADVP>
+      <SQ level="3">
+        <VBD level="4">
+          was
+        </VBD>
+        <NP level="4">
+          <DT level="5">
+            the
+          </DT>
+          <NN level="5">
+            girl
+          </NN>
+        </NP>
+        <VP level="4">
+          <VBG level="5">
+            filming
+          </VBG>
+          <NP level="5">
+            <DT level="6">
+              this
+            </DT>
+            <JJ level="6">
+              bald
+            </JJ>
+            <COMMA level="6">
+              COMMA
+            </COMMA>
+            <JJ level="6">
+              middle-aged
+            </JJ>
+            <NN level="6">
+              man
+            </NN>
+          </NP>
+          <S level="5">
+            <VP level="6">
+              <VBG level="7">
+                driving
+              </VBG>
+              <PRT level="7">
+                <RP level="8">
+                  down
+                </RP>
+              </PRT>
+              <NP level="7">
+                <DT level="8">
+                  the
+                </DT>
+                <NN level="8">
+                  highway
+                </NN>
+              </NP>
+            </VP>
+          </S>
+        </VP>
+      </SQ>
+      <PERIOD level="3">
+        QUESTION
+      </PERIOD>
+    </SBARQ>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (SBARQ (WHADVP (WRB Why)) (SINV (VP (VBD did) (NP (DT the) (NN narrator) (NN watch))) (NP (DT this) (NN video))) (. ?))) </parse>
+FILTERED  ( ROOT  ( SBARQ  ( WHADVP  ( WRB Why )  )   ( SINV  ( VP  ( VBD did )   ( NP  ( DT the )   ( NN narrator )   ( NN watch )  )  )   ( NP  ( DT this )   ( NN video )  )  )   ( PERIOD QUESTION )  )  )  
+
+  <ROOT level="1">
+    <SBARQ level="2">
+      <WHADVP level="3">
+        <WRB level="4">
+          Why
+        </WRB>
+      </WHADVP>
+      <SINV level="3">
+        <VP level="4">
+          <VBD level="5">
+            did
+          </VBD>
+          <NP level="5">
+            <DT level="6">
+              the
+            </DT>
+            <NN level="6">
+              narrator
+            </NN>
+            <NN level="6">
+              watch
+            </NN>
+          </NP>
+        </VP>
+        <NP level="4">
+          <DT level="5">
+            this
+          </DT>
+          <NN level="5">
+            video
+          </NN>
+        </NP>
+      </SINV>
+      <PERIOD level="3">
+        QUESTION
+      </PERIOD>
+    </SBARQ>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (NP (DT The) (ADJP (RBR more) (JJ pressing)) (NN question)) (SBAR (IN that) (S (NP (PRP we)) (VP (VBP are) (VP (VBN left) (PP (IN with) (ADVP (RB though)))))))) (VP (VBZ is) (SBARQ (SBARQ (WHADVP (RB not) (WRB why)) (SQ (VBD did) (NP (PRP he)) (VP (VB watch) (NP (DT the) (NN video)) (NP-TMP (DT the) (JJ first) (NN time))))) (, ,) (CC but) (SBARQ (WHADVP (WRB why)) (SQ (VBD did) (NP (PRP he)) (VP (VB continue) (S (VP (TO to) (VP (VB watch) (NP (PRP it)) (ADVP (RB repeatedly))))))) (. ?)))))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( NP  ( DT The )   ( ADJP  ( RBR more )   ( JJ pressing )  )   ( NN question )  )   ( SBAR  ( IN that )   ( S  ( NP  ( PRP we )  )   ( VP  ( VBP are )   ( VP  ( VBN left )   ( PP  ( IN with )   ( ADVP  ( RB though )  )  )  )  )  )  )  )   ( VP  ( VBZ is )   ( SBARQ  ( SBARQ  ( WHADVP  ( RB not )   ( WRB why )  )   ( SQ  ( VBD did )   ( NP  ( PRP he )  )   ( VP  ( VB watch )   ( NP  ( DT the )   ( NN video )  )   ( NP-TMP  ( DT the )   ( JJ first )   ( NN time )  )  )  )  )   ( COMMA COMMA )   ( CC but )   ( SBARQ  ( WHADVP  ( WRB why )  )   ( SQ  ( VBD did )   ( NP  ( PRP he )  )   ( VP  ( VB continue )   ( S  ( VP  ( TO to )   ( VP  ( VB watch )   ( NP  ( PRP it )  )   ( ADVP  ( RB repeatedly )  )  )  )  )  )  )   ( PERIOD QUESTION )  )  )  )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <NP level="4">
+          <DT level="5">
+            The
+          </DT>
+          <ADJP level="5">
+            <RBR level="6">
+              more
+            </RBR>
+            <JJ level="6">
+              pressing
+            </JJ>
+          </ADJP>
+          <NN level="5">
+            question
+          </NN>
+        </NP>
+        <SBAR level="4">
+          <IN level="5">
+            that
+          </IN>
+          <S level="5">
+            <NP level="6">
+              <PRP level="7">
+                we
+              </PRP>
+            </NP>
+            <VP level="6">
+              <VBP level="7">
+                are
+              </VBP>
+              <VP level="7">
+                <VBN level="8">
+                  left
+                </VBN>
+                <PP level="8">
+                  <IN level="9">
+                    with
+                  </IN>
+                  <ADVP level="9">
+                    <RB level="10">
+                      though
+                    </RB>
+                  </ADVP>
+                </PP>
+              </VP>
+            </VP>
+          </S>
+        </SBAR>
+      </NP>
+      <VP level="3">
+        <VBZ level="4">
+          is
+        </VBZ>
+        <SBARQ level="4">
+          <SBARQ level="5">
+            <WHADVP level="6">
+              <RB level="7">
+                not
+              </RB>
+              <WRB level="7">
+                why
+              </WRB>
+            </WHADVP>
+            <SQ level="6">
+              <VBD level="7">
+                did
+              </VBD>
+              <NP level="7">
+                <PRP level="8">
+                  he
+                </PRP>
+              </NP>
+              <VP level="7">
+                <VB level="8">
+                  watch
+                </VB>
+                <NP level="8">
+                  <DT level="9">
+                    the
+                  </DT>
+                  <NN level="9">
+                    video
+                  </NN>
+                </NP>
+                <NP-TMP level="8">
+                  <DT level="9">
+                    the
+                  </DT>
+                  <JJ level="9">
+                    first
+                  </JJ>
+                  <NN level="9">
+                    time
+                  </NN>
+                </NP-TMP>
+              </VP>
+            </SQ>
+          </SBARQ>
+          <COMMA level="5">
+            COMMA
+          </COMMA>
+          <CC level="5">
+            but
+          </CC>
+          <SBARQ level="5">
+            <WHADVP level="6">
+              <WRB level="7">
+                why
+              </WRB>
+            </WHADVP>
+            <SQ level="6">
+              <VBD level="7">
+                did
+              </VBD>
+              <NP level="7">
+                <PRP level="8">
+                  he
+                </PRP>
+              </NP>
+              <VP level="7">
+                <VB level="8">
+                  continue
+                </VB>
+                <S level="8">
+                  <VP level="9">
+                    <TO level="10">
+                      to
+                    </TO>
+                    <VP level="10">
+                      <VB level="11">
+                        watch
+                      </VB>
+                      <NP level="11">
+                        <PRP level="12">
+                          it
+                        </PRP>
+                      </NP>
+                      <ADVP level="11">
+                        <RB level="12">
+                          repeatedly
+                        </RB>
+                      </ADVP>
+                    </VP>
+                  </VP>
+                </S>
+              </VP>
+            </SQ>
+            <PERIOD level="6">
+              QUESTION
+            </PERIOD>
+          </SBARQ>
+        </SBARQ>
+      </VP>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (NP (DT The) (NN reason)) (SBAR (IN that) (S (NP (DT the) (NN narrator)) (VP (VBD did) (RB not) (VP (VB look) (ADVP (RB away))))))) (VP (VBZ is) (NP (NP (DT the) (JJ same) (NN reason)) (SBAR (WHNP (WHADVP (WRB why)) (NNS people)) (S (NP (DT every) (NN day)) (VP (VBP are) (ADJP (JJ apathetic) (PP (IN towards) (NP (NP (DT the) (NN violence)) (PP (IN in) (NP (PRP$ our) (NN world)))))) (, ,) (SBAR (IN because) (S (NP (NP (NNS changes)) (PP (IN in) (NP (NN culture) (CC and) (NN mass) (NNS media)))) (VP (VBP have) (VP (VBN made) (S (NP (PRP$ our) (NN society)) (ADJP (JJ impassive)))))))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( NP  ( DT The )   ( NN reason )  )   ( SBAR  ( IN that )   ( S  ( NP  ( DT the )   ( NN narrator )  )   ( VP  ( VBD did )   ( RB not )   ( VP  ( VB look )   ( ADVP  ( RB away )  )  )  )  )  )  )   ( VP  ( VBZ is )   ( NP  ( NP  ( DT the )   ( JJ same )   ( NN reason )  )   ( SBAR  ( WHNP  ( WHADVP  ( WRB why )  )   ( NNS people )  )   ( S  ( NP  ( DT every )   ( NN day )  )   ( VP  ( VBP are )   ( ADJP  ( JJ apathetic )   ( PP  ( IN towards )   ( NP  ( NP  ( DT the )   ( NN violence )  )   ( PP  ( IN in )   ( NP  ( PRPDOLLAR our )   ( NN world )  )  )  )  )  )   ( COMMA COMMA )   ( SBAR  ( IN because )   ( S  ( NP  ( NP  ( NNS changes )  )   ( PP  ( IN in )   ( NP  ( NN culture )   ( CC and )   ( NN mass )   ( NNS media )  )  )  )   ( VP  ( VBP have )   ( VP  ( VBN made )   ( S  ( NP  ( PRPDOLLAR our )   ( NN society )  )   ( ADJP  ( JJ impassive )  )  )  )  )  )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <NP level="4">
+          <DT level="5">
+            The
+          </DT>
+          <NN level="5">
+            reason
+          </NN>
+        </NP>
+        <SBAR level="4">
+          <IN level="5">
+            that
+          </IN>
+          <S level="5">
+            <NP level="6">
+              <DT level="7">
+                the
+              </DT>
+              <NN level="7">
+                narrator
+              </NN>
+            </NP>
+            <VP level="6">
+              <VBD level="7">
+                did
+              </VBD>
+              <RB level="7">
+                not
+              </RB>
+              <VP level="7">
+                <VB level="8">
+                  look
+                </VB>
+                <ADVP level="8">
+                  <RB level="9">
+                    away
+                  </RB>
+                </ADVP>
+              </VP>
+            </VP>
+          </S>
+        </SBAR>
+      </NP>
+      <VP level="3">
+        <VBZ level="4">
+          is
+        </VBZ>
+        <NP level="4">
+          <NP level="5">
+            <DT level="6">
+              the
+            </DT>
+            <JJ level="6">
+              same
+            </JJ>
+            <NN level="6">
+              reason
+            </NN>
+          </NP>
+          <SBAR level="5">
+            <WHNP level="6">
+              <WHADVP level="7">
+                <WRB level="8">
+                  why
+                </WRB>
+              </WHADVP>
+              <NNS level="7">
+                people
+              </NNS>
+            </WHNP>
+            <S level="6">
+              <NP level="7">
+                <DT level="8">
+                  every
+                </DT>
+                <NN level="8">
+                  day
+                </NN>
+              </NP>
+              <VP level="7">
+                <VBP level="8">
+                  are
+                </VBP>
+                <ADJP level="8">
+                  <JJ level="9">
+                    apathetic
+                  </JJ>
+                  <PP level="9">
+                    <IN level="10">
+                      towards
+                    </IN>
+                    <NP level="10">
+                      <NP level="11">
+                        <DT level="12">
+                          the
+                        </DT>
+                        <NN level="12">
+                          violence
+                        </NN>
+                      </NP>
+                      <PP level="11">
+                        <IN level="12">
+                          in
+                        </IN>
+                        <NP level="12">
+                          <PRPDOLLAR level="13">
+                            our
+                          </PRPDOLLAR>
+                          <NN level="13">
+                            world
+                          </NN>
+                        </NP>
+                      </PP>
+                    </NP>
+                  </PP>
+                </ADJP>
+                <COMMA level="8">
+                  COMMA
+                </COMMA>
+                <SBAR level="8">
+                  <IN level="9">
+                    because
+                  </IN>
+                  <S level="9">
+                    <NP level="10">
+                      <NP level="11">
+                        <NNS level="12">
+                          changes
+                        </NNS>
+                      </NP>
+                      <PP level="11">
+                        <IN level="12">
+                          in
+                        </IN>
+                        <NP level="12">
+                          <NN level="13">
+                            culture
+                          </NN>
+                          <CC level="13">
+                            and
+                          </CC>
+                          <NN level="13">
+                            mass
+                          </NN>
+                          <NNS level="13">
+                            media
+                          </NNS>
+                        </NP>
+                      </PP>
+                    </NP>
+                    <VP level="10">
+                      <VBP level="11">
+                        have
+                      </VBP>
+                      <VP level="11">
+                        <VBN level="12">
+                          made
+                        </VBN>
+                        <S level="12">
+                          <NP level="13">
+                            <PRPDOLLAR level="14">
+                              our
+                            </PRPDOLLAR>
+                            <NN level="14">
+                              society
+                            </NN>
+                          </NP>
+                          <ADJP level="13">
+                            <JJ level="14">
+                              impassive
+                            </JJ>
+                          </ADJP>
+                        </S>
+                      </VP>
+                    </VP>
+                  </S>
+                </SBAR>
+              </VP>
+            </S>
+          </SBAR>
+        </NP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (PP (IN By) (NP (NP (NN delving)) (PP (PP (IN into) (NP (NP (DT the) (NNS details)) (PP (IN of) (NP (NP (NP (DT the) (NN narrator) (POS 's)) (JJ emotional) (NN response)) (, ,) (CC or) (NP (NN lack) (RB thereof)) (, ,))))) (PP (TO to) (NP (DT the) (NN videotape)))))) (, ,) (NP (PRP we)) (VP (MD can) (VP (VB see) (SBAR (WHADVP (WRB how)) (S (NP (NP (NNP DeLillo) (POS 's)) (NN essay)) (VP (VBZ speaks) (PP (TO to) (NP (NP (NN society) (POS 's)) (NN indifference))) (PP (TO to) (NP (NP (NN violence)) (ADJP (JJ due) (PP (TO to) (NP (NN overexposure))))))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( PP  ( IN By )   ( NP  ( NP  ( NN delving )  )   ( PP  ( PP  ( IN into )   ( NP  ( NP  ( DT the )   ( NNS details )  )   ( PP  ( IN of )   ( NP  ( NP  ( NP  ( DT the )   ( NN narrator )   ( POS 's )  )   ( JJ emotional )   ( NN response )  )   ( COMMA COMMA )   ( CC or )   ( NP  ( NN lack )   ( RB thereof )  )   ( COMMA COMMA )  )  )  )  )   ( PP  ( TO to )   ( NP  ( DT the )   ( NN videotape )  )  )  )  )  )   ( COMMA COMMA )   ( NP  ( PRP we )  )   ( VP  ( MD can )   ( VP  ( VB see )   ( SBAR  ( WHADVP  ( WRB how )  )   ( S  ( NP  ( NP  ( NNP DeLillo )   ( POS 's )  )   ( NN essay )  )   ( VP  ( VBZ speaks )   ( PP  ( TO to )   ( NP  ( NP  ( NN society )   ( POS 's )  )   ( NN indifference )  )  )   ( PP  ( TO to )   ( NP  ( NP  ( NN violence )  )   ( ADJP  ( JJ due )   ( PP  ( TO to )   ( NP  ( NN overexposure )  )  )  )  )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <PP level="3">
+        <IN level="4">
+          By
+        </IN>
+        <NP level="4">
+          <NP level="5">
+            <NN level="6">
+              delving
+            </NN>
+          </NP>
+          <PP level="5">
+            <PP level="6">
+              <IN level="7">
+                into
+              </IN>
+              <NP level="7">
+                <NP level="8">
+                  <DT level="9">
+                    the
+                  </DT>
+                  <NNS level="9">
+                    details
+                  </NNS>
+                </NP>
+                <PP level="8">
+                  <IN level="9">
+                    of
+                  </IN>
+                  <NP level="9">
+                    <NP level="10">
+                      <NP level="11">
+                        <DT level="12">
+                          the
+                        </DT>
+                        <NN level="12">
+                          narrator
+                        </NN>
+                        <POS level="12">
+                          's
+                        </POS>
+                      </NP>
+                      <JJ level="11">
+                        emotional
+                      </JJ>
+                      <NN level="11">
+                        response
+                      </NN>
+                    </NP>
+                    <COMMA level="10">
+                      COMMA
+                    </COMMA>
+                    <CC level="10">
+                      or
+                    </CC>
+                    <NP level="10">
+                      <NN level="11">
+                        lack
+                      </NN>
+                      <RB level="11">
+                        thereof
+                      </RB>
+                    </NP>
+                    <COMMA level="10">
+                      COMMA
+                    </COMMA>
+                  </NP>
+                </PP>
+              </NP>
+            </PP>
+            <PP level="6">
+              <TO level="7">
+                to
+              </TO>
+              <NP level="7">
+                <DT level="8">
+                  the
+                </DT>
+                <NN level="8">
+                  videotape
+                </NN>
+              </NP>
+            </PP>
+          </PP>
+        </NP>
+      </PP>
+      <COMMA level="3">
+        COMMA
+      </COMMA>
+      <NP level="3">
+        <PRP level="4">
+          we
+        </PRP>
+      </NP>
+      <VP level="3">
+        <MD level="4">
+          can
+        </MD>
+        <VP level="4">
+          <VB level="5">
+            see
+          </VB>
+          <SBAR level="5">
+            <WHADVP level="6">
+              <WRB level="7">
+                how
+              </WRB>
+            </WHADVP>
+            <S level="6">
+              <NP level="7">
+                <NP level="8">
+                  <NNP level="9">
+                    DeLillo
+                  </NNP>
+                  <POS level="9">
+                    's
+                  </POS>
+                </NP>
+                <NN level="8">
+                  essay
+                </NN>
+              </NP>
+              <VP level="7">
+                <VBZ level="8">
+                  speaks
+                </VBZ>
+                <PP level="8">
+                  <TO level="9">
+                    to
+                  </TO>
+                  <NP level="9">
+                    <NP level="10">
+                      <NN level="11">
+                        society
+                      </NN>
+                      <POS level="11">
+                        's
+                      </POS>
+                    </NP>
+                    <NN level="10">
+                      indifference
+                    </NN>
+                  </NP>
+                </PP>
+                <PP level="8">
+                  <TO level="9">
+                    to
+                  </TO>
+                  <NP level="9">
+                    <NP level="10">
+                      <NN level="11">
+                        violence
+                      </NN>
+                    </NP>
+                    <ADJP level="10">
+                      <JJ level="11">
+                        due
+                      </JJ>
+                      <PP level="11">
+                        <TO level="12">
+                          to
+                        </TO>
+                        <NP level="12">
+                          <NN level="13">
+                            overexposure
+                          </NN>
+                        </NP>
+                      </PP>
+                    </ADJP>
+                  </NP>
+                </PP>
+              </VP>
+            </S>
+          </SBAR>
+        </VP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (DT The) (NN narrator)) (VP (VBZ starts) (PRT (RP out)) (S (VP (VBG describing) (NP (NP (DT the) (NN videotape)) (PP (IN with) (NP (ADJP (RB very) (JJ vivid)) (NN language)))) (PP (JJ such)) (SBAR (IN that) (S (NP (PRP we)) (VP (VBP feel) (SBAR (IN like) (S (NP (PRP we)) (ADVP (RB too)) (VP (VBP are) (VP (VBG watching) (NP (DT the) (NN video)))))))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( DT The )   ( NN narrator )  )   ( VP  ( VBZ starts )   ( PRT  ( RP out )  )   ( S  ( VP  ( VBG describing )   ( NP  ( NP  ( DT the )   ( NN videotape )  )   ( PP  ( IN with )   ( NP  ( ADJP  ( RB very )   ( JJ vivid )  )   ( NN language )  )  )  )   ( PP  ( JJ such )  )   ( SBAR  ( IN that )   ( S  ( NP  ( PRP we )  )   ( VP  ( VBP feel )   ( SBAR  ( IN like )   ( S  ( NP  ( PRP we )  )   ( ADVP  ( RB too )  )   ( VP  ( VBP are )   ( VP  ( VBG watching )   ( NP  ( DT the )   ( NN video )  )  )  )  )  )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <DT level="4">
+          The
+        </DT>
+        <NN level="4">
+          narrator
+        </NN>
+      </NP>
+      <VP level="3">
+        <VBZ level="4">
+          starts
+        </VBZ>
+        <PRT level="4">
+          <RP level="5">
+            out
+          </RP>
+        </PRT>
+        <S level="4">
+          <VP level="5">
+            <VBG level="6">
+              describing
+            </VBG>
+            <NP level="6">
+              <NP level="7">
+                <DT level="8">
+                  the
+                </DT>
+                <NN level="8">
+                  videotape
+                </NN>
+              </NP>
+              <PP level="7">
+                <IN level="8">
+                  with
+                </IN>
+                <NP level="8">
+                  <ADJP level="9">
+                    <RB level="10">
+                      very
+                    </RB>
+                    <JJ level="10">
+                      vivid
+                    </JJ>
+                  </ADJP>
+                  <NN level="9">
+                    language
+                  </NN>
+                </NP>
+              </PP>
+            </NP>
+            <PP level="6">
+              <JJ level="7">
+                such
+              </JJ>
+            </PP>
+            <SBAR level="6">
+              <IN level="7">
+                that
+              </IN>
+              <S level="7">
+                <NP level="8">
+                  <PRP level="9">
+                    we
+                  </PRP>
+                </NP>
+                <VP level="8">
+                  <VBP level="9">
+                    feel
+                  </VBP>
+                  <SBAR level="9">
+                    <IN level="10">
+                      like
+                    </IN>
+                    <S level="10">
+                      <NP level="11">
+                        <PRP level="12">
+                          we
+                        </PRP>
+                      </NP>
+                      <ADVP level="11">
+                        <RB level="12">
+                          too
+                        </RB>
+                      </ADVP>
+                      <VP level="11">
+                        <VBP level="12">
+                          are
+                        </VBP>
+                        <VP level="12">
+                          <VBG level="13">
+                            watching
+                          </VBG>
+                          <NP level="13">
+                            <DT level="14">
+                              the
+                            </DT>
+                            <NN level="14">
+                              video
+                            </NN>
+                          </NP>
+                        </VP>
+                      </VP>
+                    </S>
+                  </SBAR>
+                </VP>
+              </S>
+            </SBAR>
+          </VP>
+        </S>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+ORIGINAL<parse>(ROOT (S (NP (PRP He)) (VP (VBZ intersperses) (NP (NP (DT this) (NN description)) (PP (IN with) (NP (PRP$ his) (JJ own) (JJ personal) (NNS thoughts))) (SBAR (WHNP (WDT which)) (S (NP (NP (PRP we)) (, ,) (NP (DT the) (NN reader)) (, ,)) (VP (VBP are) (ADJP (JJ able) (S (VP (TO to) (VP (ADVP (RB easily)) (VB understand) (CC and) (VB relate) (PP (TO to))))))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( NP  ( PRP He )  )   ( VP  ( VBZ intersperses )   ( NP  ( NP  ( DT this )   ( NN description )  )   ( PP  ( IN with )   ( NP  ( PRPDOLLAR his )   ( JJ own )   ( JJ personal )   ( NNS thoughts )  )  )   ( SBAR  ( WHNP  ( WDT which )  )   ( S  ( NP  ( NP  ( PRP we )  )   ( COMMA COMMA )   ( NP  ( DT the )   ( NN reader )  )   ( COMMA COMMA )  )   ( VP  ( VBP are )   ( ADJP  ( JJ able )   ( S  ( VP  ( TO to )   ( VP  ( ADVP  ( RB easily )  )   ( VB understand )   ( CC and )   ( VB relate )   ( PP  ( TO to )  )  )  )  )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <NP level="3">
+        <PRP level="4">
+          He
+        </PRP>
+      </NP>
+      <VP level="3">
+        <VBZ level="4">
+          intersperses
+        </VBZ>
+        <NP level="4">
+          <NP level="5">
+            <DT level="6">
+              this
+            </DT>
+            <NN level="6">
+              description
+            </NN>
+          </NP>
+          <PP level="5">
+            <IN level="6">
+              with
+            </IN>
+            <NP level="6">
+              <PRPDOLLAR level="7">
+                his
+              </PRPDOLLAR>
+              <JJ level="7">
+                own
+              </JJ>
+              <JJ level="7">
+                personal
+              </JJ>
+              <NNS level="7">
+                thoughts
+              </NNS>
+            </NP>
+          </PP>
+          <SBAR level="5">
+            <WHNP level="6">
+              <WDT level="7">
+                which
+              </WDT>
+            </WHNP>
+            <S level="6">
+              <NP level="7">
+                <NP level="8">
+                  <PRP level="9">
+                    we
+                  </PRP>
+                </NP>
+                <COMMA level="8">
+                  COMMA
+                </COMMA>
+                <NP level="8">
+                  <DT level="9">
+                    the
+                  </DT>
+                  <NN level="9">
+                    reader
+                  </NN>
+                </NP>
+                <COMMA level="8">
+                  COMMA
+                </COMMA>
+              </NP>
+              <VP level="7">
+                <VBP level="8">
+                  are
+                </VBP>
+                <ADJP level="8">
+                  <JJ level="9">
+                    able
+                  </JJ>
+                  <S level="9">
+                    <VP level="10">
+                      <TO level="11">
+                        to
+                      </TO>
+                      <VP level="11">
+                        <ADVP level="12">
+                          <RB level="13">
+                            easily
+                          </RB>
+                        </ADVP>
+                        <VB level="12">
+                          understand
+                        </VB>
+                        <CC level="12">
+                          and
+                        </CC>
+                        <VB level="12">
+                          relate
+                        </VB>
+                        <PP level="12">
+                          <TO level="13">
+                            to
+                          </TO>
+                        </PP>
+                      </VP>
+                    </VP>
+                  </S>
+                </ADJP>
+              </VP>
+            </S>
+          </SBAR>
+        </NP>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+UTILS: close the output file
+UTILS: the output file was closed

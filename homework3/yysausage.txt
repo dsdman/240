@@ -1,0 +1,2 @@
+<parse> (ROOT (S (NP (NNP Food)) (VP (VBZ is) (ADJP (JJ enjoyable))) (PERIOD PERIOD))) </parse>
+<parse> (ROOT (S (NP (PRPDOLLAR My) (NN dog)) (ADVP (RB also)) (VP (VBZ likes) (S (VP (VBG eating) (NP (NN sausage))))) (PERIOD PERIOD))) </parse>

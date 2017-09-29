@@ -1,0 +1,114 @@
+UTILS: open the logfile 'xxpullinglog'
+UTILS: open succeeded for 'xxpullinglog'
+UTILS: open the input file '../../xxpulling.txt'
+UTILS: open succeeded for '../../xxpulling.txt'
+ORIGINAL<parse>(ROOT (S (SBAR (IN As) (S (NP (NNP Gregor) (NNP Samsa)) (VP (VBD awoke) (NP (CD one)) (NP-TMP (NN morning)) (PP (IN from) (NP (JJ uneasy) (NNS dreams)))))) (NP (PRP he)) (VP (VBD found) (SBAR (S (NP (PRP himself)) (VP (VBN transformed) (PP (IN in) (NP (PRP$ his) (NN bed))) (PP (IN into) (NP (DT a) (JJ monstrous) (NN vermin))))))) (. .))) </parse>
+FILTERED  ( ROOT  ( S  ( SBAR  ( IN As )   ( S  ( NP  ( NNP Gregor )   ( NNP Samsa )  )   ( VP  ( VBD awoke )   ( NP  ( CD one )  )   ( NP-TMP  ( NN morning )  )   ( PP  ( IN from )   ( NP  ( JJ uneasy )   ( NNS dreams )  )  )  )  )  )   ( NP  ( PRP he )  )   ( VP  ( VBD found )   ( SBAR  ( S  ( NP  ( PRP himself )  )   ( VP  ( VBN transformed )   ( PP  ( IN in )   ( NP  ( PRPDOLLAR his )   ( NN bed )  )  )   ( PP  ( IN into )   ( NP  ( DT a )   ( JJ monstrous )   ( NN vermin )  )  )  )  )  )  )   ( PERIOD PERIOD )  )  )  
+
+  <ROOT level="1">
+    <S level="2">
+      <SBAR level="3">
+        <IN level="4">
+          As
+        </IN>
+        <S level="4">
+          <NP level="5">
+            <NNP level="6">
+              Gregor
+            </NNP>
+            <NNP level="6">
+              Samsa
+            </NNP>
+          </NP>
+          <VP level="5">
+            <VBD level="6">
+              awoke
+            </VBD>
+            <NP level="6">
+              <CD level="7">
+                one
+              </CD>
+            </NP>
+            <NP-TMP level="6">
+              <NN level="7">
+                morning
+              </NN>
+            </NP-TMP>
+            <PP level="6">
+              <IN level="7">
+                from
+              </IN>
+              <NP level="7">
+                <JJ level="8">
+                  uneasy
+                </JJ>
+                <NNS level="8">
+                  dreams
+                </NNS>
+              </NP>
+            </PP>
+          </VP>
+        </S>
+      </SBAR>
+      <NP level="3">
+        <PRP level="4">
+          he
+        </PRP>
+      </NP>
+      <VP level="3">
+        <VBD level="4">
+          found
+        </VBD>
+        <SBAR level="4">
+          <S level="5">
+            <NP level="6">
+              <PRP level="7">
+                himself
+              </PRP>
+            </NP>
+            <VP level="6">
+              <VBN level="7">
+                transformed
+              </VBN>
+              <PP level="7">
+                <IN level="8">
+                  in
+                </IN>
+                <NP level="8">
+                  <PRPDOLLAR level="9">
+                    his
+                  </PRPDOLLAR>
+                  <NN level="9">
+                    bed
+                  </NN>
+                </NP>
+              </PP>
+              <PP level="7">
+                <IN level="8">
+                  into
+                </IN>
+                <NP level="8">
+                  <DT level="9">
+                    a
+                  </DT>
+                  <JJ level="9">
+                    monstrous
+                  </JJ>
+                  <NN level="9">
+                    vermin
+                  </NN>
+                </NP>
+              </PP>
+            </VP>
+          </S>
+        </SBAR>
+      </VP>
+      <PERIOD level="3">
+        PERIOD
+      </PERIOD>
+    </S>
+  </ROOT>
+  
+
+UTILS: close the output file
+UTILS: the output file was closed
