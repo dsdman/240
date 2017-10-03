@@ -1,0 +1,15 @@
+GPP = g++ -O3 -Wall -std=c++11
+X = xmlitem.o
+T = xmlitem_test.o
+
+test: $T $X
+	$(GPP) -o test $T $X
+
+xmlitem_test.o: xmlitem_test.cc
+	$(GPP) -c xmlitem_test.cc
+
+xmlitem.o: xmlitem.h xmlitem.cc
+	$(GPP) -c xmlitem.cc
+
+clean:
+	rm xmlitem_test.o xmlitem.o test

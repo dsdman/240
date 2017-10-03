@@ -1,0 +1,38 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	makefile	/^A = main.o$/;"	m
+FilterInput	parseintoxml.cc	/^string ParseIntoXML::FilterInput(const string& the_string) {$/;"	f	class:ParseIntoXML
+GPP	makefile	/^GPP = g++ -O3 -Wall -std=c++11$/;"	m
+GetLevel	xmlitem.cc	/^int GetLevel() const {$/;"	f
+MAIN_H	main.h	10;"	d
+P	makefile	/^P = parseintoxml.o$/;"	m
+PARSEINTOXML_H	parseintoxml.h	14;"	d
+ParseIntoXML	parseintoxml.cc	/^ParseIntoXML::ParseIntoXML() {$/;"	f	class:ParseIntoXML
+ParseIntoXML	parseintoxml.h	/^class ParseIntoXML {$/;"	c
+ParseTheFile	parseintoxml.cc	/^void ParseIntoXML::ParseTheFile(Scanner& in_scanner) {$/;"	f	class:ParseIntoXML
+ReadData	parseintoxml.cc	/^vector<string> ParseIntoXML::ReadData(Scanner& file_scanner) {$/;"	f	class:ParseIntoXML
+Replace	parseintoxml.cc	/^string ParseIntoXML::Replace(string the_string, string old_string, string $/;"	f	class:ParseIntoXML
+S	makefile	/^S = scanner.o$/;"	m
+SL	makefile	/^SL = scanline.o$/;"	m
+Split	parseintoxml.cc	/^vector<string> ParseIntoXML::Split(string in_string) const {$/;"	f	class:ParseIntoXML
+ToString	xmlitem.cc	/^string XMLItem::ToString() const {$/;"	f	class:XMLItem
+ToStringXML	parseintoxml.cc	/^string ParseIntoXML::ToStringXML(vector<XMLItem> the_vector) const {$/;"	f	class:ParseIntoXML
+U	makefile	/^U = utils.o$/;"	m
+UTILS	makefile	/^UTILS = ..\/..\/Utilities$/;"	m
+X	makefile	/^X = xmlitem.o$/;"	m
+XMLITEM_H	xmlitem.h	12;"	d
+XMLItem	xmlitem.cc	/^XMLItem::XMLItem() {$/;"	f	class:XMLItem
+XMLItem	xmlitem.cc	/^XMLItem::XMLItem(int level, string item, string which) {$/;"	f	class:XMLItem
+XMLItem	xmlitem.h	/^class XMLItem {$/;"	c
+XMLize	parseintoxml.cc	/^vector<XMLItem> ParseIntoXML::XMLize(string in_string) const {$/;"	f	class:ParseIntoXML
+item_	xmlitem.h	/^    string item_; $/;"	m	class:XMLItem
+kTag	main.cc	/^static const string kTag = "Main: ";$/;"	v	file:
+level_	xmlitem.h	/^    int level_; $/;"	m	class:XMLItem
+main	main.cc	/^int main(int argc, char *argv[]) {$/;"	f
+which_	xmlitem.h	/^    string which_;$/;"	m	class:XMLItem
+~ParseIntoXML	parseintoxml.cc	/^ParseIntoXML::~ParseIntoXML() {$/;"	f	class:ParseIntoXML
+~XMLItem	xmlitem.cc	/^XMLItem::~XMLItem() {$/;"	f	class:XMLItem

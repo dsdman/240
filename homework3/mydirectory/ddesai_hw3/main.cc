@@ -23,14 +23,9 @@
 static const string kTag = "Main: ";
 
 int main(int argc, char *argv[]) {
-  //VARIABLES
   string in_filename = "";
   string log_filename = "";
-
-  //used for reading/writing above files
   Scanner in_scanner;
-
-  //object of class that parses the input file
   ParseIntoXML parseintoxml;
 
   //assigns the filenames to the user-provided inputs
