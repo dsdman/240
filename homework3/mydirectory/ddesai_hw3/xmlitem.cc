@@ -68,8 +68,7 @@ string XMLItem::ToString() const {
   stringstream temp;
   string out = "";
 
-  //not sure WTF "prettyprinting" even means, so I'll just return the data
-  //depending on what "which" is (assuming "which" is either "open", "close", 
+  //depends on what "which" is (assuming "which" is either "open", "close", 
   //or anything else for returning just the item)
   if (which_ == "open") {
     temp << "<" << this->item_ << " level=\"" << this->level_ << "\">";
@@ -78,7 +77,9 @@ string XMLItem::ToString() const {
     temp << "</" << this->item_ << ">";
   }
   else {
-    temp << this->item_;
+    //hardcoding the spaces here because I can't get them to work by
+    //simply increasing the level
+    temp << "  " << this->item_;
   }
   out = temp.str();
 

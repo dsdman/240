@@ -83,15 +83,16 @@ void ParseIntoXML::ParseTheFile(Scanner& in_scanner) {
   cout << endl;
 
   //xmlize each of the strings
-  for (int i = 0; i < input_strings.size(); ++i) {
+  for (int i = 0; i < input_strings.size() - 1; ++i) {
     xml_strings = this->XMLize(input_strings.at(i));
     xml_string_holder.push_back(xml_strings);
+    xml_strings.clear();  
   }
+  
+  //get and display the formatted string of XML data
   for (int i = 0; i < xml_string_holder.size(); ++i) {
     xml_data += this->ToStringXML(xml_string_holder.at(i));
   }
-
-  //the program is done
   cout << xml_data << endl;
 
   #ifdef EBUG
@@ -179,7 +180,7 @@ string ParseIntoXML::ToStringXML(vector<XMLItem> the_vector) const {
 */
 vector<XMLItem> ParseIntoXML::XMLize(string in_string) const {
   //temporary variables for the XMLItem building
-  string tolken = "";
+  string token = "";
   int level = 0;
   string item = "";
   string which = "";
@@ -193,9 +194,9 @@ vector<XMLItem> ParseIntoXML::XMLize(string in_string) const {
 
   //walk through the line by token
   while (scanner.HasNext()) {
-    //grab the next tolken and decide what to do based on what it is
-    tolken = scanner.Next();
-    if (tolken == "(") {
+    //grab the next token and decide what to do based on what it is
+    token = scanner.Next();
+    if (token == "(") {
       //grab the level, item, and which 
       ++level;
       item = scanner.Next();
@@ -203,13 +204,11 @@ vector<XMLItem> ParseIntoXML::XMLize(string in_string) const {
       //create and push the xmlItem as well as push end tag for 
       //the corresponding item
       the_item = XMLItem(level, item, which);
-      //cout << the_item.ToString() << endl;
       out.push_back(the_item);
       the_item = XMLItem(level, item, "close");
-      //cout << the_item.ToString() << endl;
       end_tags.push(the_item);
     }
-    else if (tolken == ")") {
+    else if (token == ")") {
       //Return the end tag by popping the top of the stack and decrement 
       //the level 
       the_item = end_tags.top();
@@ -218,10 +217,10 @@ vector<XMLItem> ParseIntoXML::XMLize(string in_string) const {
       --level;
     }
     else {
-      item = tolken;
+      //the xmlItem is going to be just the data
+      item = token;
       which = "";
       the_item = XMLItem(level, item, which);
-      //cout << the_item.ToString() << endl;
       out.push_back(the_item);
     }
   }

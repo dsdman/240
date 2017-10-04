@@ -13,7 +13,7 @@
 
 //includes and namespaces
 #include <iostream>
-#include <sstream> //allows me to format strings in 'ToString' properly
+#include <sstream> //allows for formatting strings in 'ToString' properly
 using namespace std;
 
 //define class
@@ -24,15 +24,16 @@ class XMLItem {
     XMLItem(int level, string item, string which);
     virtual ~XMLItem();
 
-    //accessors and mutaters
+    //accessors should be const since they don't modify the class variables
     int GetLevel() const;
     string GetItem() const;
     string GetWhich() const;
+    //setters should have const parameters becuase they change the class's 
+    //variables only
     void SetLevel(const int& level);
     void SetItem(const string& item);
     void SetWhich(const string& which);
 
-    //ToString method
     string ToString() const;
 
   private:

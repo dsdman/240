@@ -39,16 +39,12 @@ class ParseIntoXML {
     void ParseTheFile(Scanner& in_scanner);
 
   private:
-    //cleans up the string
     string FilterInput(const string& the_string);
-    //intuitive replace function
     string Replace(string the_string, string old_string, string new_string); 
-    //returns the "pretty" string of xml given a vector of data
     string ToStringXML(vector<XMLItem> the_vector) const;
     //vector<string> Split(string in_string) const; I did not use this function since I did this in 'FilterInput'
     //reads the data from a file opened from a scanner
     vector<string> ReadData(Scanner& file_scanner);
-    //returns vector of data from a string
     vector<XMLItem> XMLize(string in_string) const;
 };
 #endif
