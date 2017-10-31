@@ -66,13 +66,7 @@ void Interpreter::DoBAN(string addr, string target) {
 #ifdef EBUG
   Utils::log_stream << "enter doBAN\n"; 
 #endif
-  //cout << "doBAN: " << pc_ << " A: " << addr << " T: " << target << endl;
-  if (accum_ < 0 && counter <= kMaxInstrCount) {
-    this->DoBR(addr, target);
-    counter++;
-  } else {
-    cout << "reached 256 instructions. exiting" << endl;
-  }
+   
 #ifdef EBUG
   Utils::log_stream << "leave doBAN\n"; 
 #endif
@@ -86,15 +80,7 @@ void Interpreter::DoBR(string addr, string target) {
 #ifdef EBUG
   Utils::log_stream << "enter doBR\n"; 
 #endif
-  //cout << "doBR: " << pc_ << " A: " << addr << " T: " << target << endl;
-  pc_ = globals_.BitStringToDec(addr) - 1;
-  //cout << "address: " << addr << endl;
-  //cout << "target: " << target << endl;
-  //make the pc equal to the target to jump to the target
-  //take last twelve, as an integer, use that integer to locate the memory at that location
-  //builder >> thething;
-  //pc_ = thething;
-  //pc_ = memory_.at(globals_.BitStringToDec(target));
+  
 #ifdef EBUG
   Utils::log_stream << "leave doBR\n"; 
 #endif
@@ -110,7 +96,6 @@ void Interpreter::DoLD(string addr, string target) {
 #endif
   //load the accumulator with value at addr
   accum_ = globals_.BitStringToDec(target);
-  cout << "doLD " << "accumulator: " << accum_ << endl;
 #ifdef EBUG
   Utils::log_stream << "leave doLD\n"; 
 #endif
@@ -124,15 +109,10 @@ void Interpreter::DoRD(Scanner& data_scanner) {
 #ifdef EBUG
   Utils::log_stream << "enter doRD\n"; 
 #endif
-  string hex = "";
-  int hexDec = 0;
 
-  hex = data_scanner.NextLine();
-  hexDec = globals_.HexToDec(hex);
-  cout << "hex to dec: " << hexDec << endl;
-  cout << "accumulator in read: " << accum_ << endl;
-  accum_ = hexDec;
- 
+  while (data_scanner.HasNext()) {
+     
+  }
 #ifdef EBUG
   Utils::log_stream << "leave doRD\n"; 
 #endif
@@ -147,9 +127,7 @@ void Interpreter::DoSTC(string addr, string target) {
   Utils::log_stream << "enter doSTC\n"; 
 #endif
   //hold the address to store and accumulator
-  //int addr_int = globals_.BitStringToDec(target);
-  int addr_int = globals_.BitStringToDec(addr);
-
+  int addr_int = globals_.BitStringToDec(target);
   string accum_string = globals_.DecToBitString(accum_, 16);
 
   //store the accumulator and clear
@@ -198,8 +176,6 @@ void Interpreter::DoWRT(ofstream& out_stream) {
 #ifdef EBUG
   Utils::log_stream << "enter doWRT\n"; 
 #endif
-  //cout everything
-  cout << "doWRT: " << "accumulator: " << accum_ << " PC: " << pc_ << endl;
   //write from accumulator to file
   out_stream << "WRITE  " << "OUTPUT  " << to_string(accum_) << "  " 
              << globals_.DecToBitString(accum_, 16) << endl;
@@ -240,18 +216,16 @@ void Interpreter::Interpret(Scanner& data_scanner, ofstream& out_stream) {
 
     // This is an interpreter thing. We prevent infinite loops from being
     // interpreted by having a timeout feature on instruction count.
-  //for (int i = 0; i < memory_.size(); ++i) { old working
-  pc_ = 0;
-  while (pc_ < memory_.size()) {
-    opcode = memory_.at(pc_).substr(0,3);
+  for (int i = 0; i < memory_.size(); ++i) {
+    opcode = memory_.at(i).substr(0,3);
     //determine opcode
     if (opcode == "111") {
       //it is RD, WRT, or STP and the whole 16 bits is the opcode in hex
-      opcode = memory_.at(pc_);
+      opcode = memory_.at(i);
     } else {
       //the next bit deterines addressing and the remaining is the address
-      is_indirect = memory_.at(pc_).at(3);
-      address = memory_.at(pc_).substr(4);
+      is_indirect = memory_.at(i).at(3);
+      address = memory_.at(i).substr(4);
 
       //handle indirect addressing
       if (is_indirect == "0") {
@@ -265,8 +239,7 @@ void Interpreter::Interpret(Scanner& data_scanner, ofstream& out_stream) {
 
     //execute instruction if the address is a valid one
     
-      cout << "INTERPRET: " << pc_ << " OP: " << opcode << " A: " << address << " T: " << target << endl;
-      this->Execute(opcode, address, target, data_scanner, out_stream);
+    this->Execute(opcode, address, target, data_scanner, out_stream);
 
     //bump program counter by 1
     ++pc_;
@@ -285,8 +258,6 @@ void Interpreter::Execute(string opcode, string addr, string target,
 #ifdef EBUG
   Utils::log_stream << "enter Execute\n"; 
 #endif
-  //cout everything
-  cout << "Execute: " << "opcode: " << opcode <<  " accumulator: " << accum_ << " PC: " << pc_ << " address: " << addr << " target: " << target << endl; 
   //execute depending on what the opcode is
   if (opcode == "1110000000000001") {
     //do read

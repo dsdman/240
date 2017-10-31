@@ -1,0 +1,2 @@
+Main: Beginning execution
+Main: logfile 'MYLOG.txt'

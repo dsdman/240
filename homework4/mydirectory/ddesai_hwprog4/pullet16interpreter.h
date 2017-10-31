@@ -22,6 +22,7 @@ using namespace std;
 
 #include "globals.h"
 #include "hex.h"
+#include <sstream>;
 
 class Interpreter {
   public:
@@ -32,11 +33,13 @@ class Interpreter {
     void Load(Scanner& exec_scanner, string binary_filename);
 
   private:
-    static const int kMaxInstrCount = 128;
-    static const int kPCForStop = 7777;
+    static const int kMaxInstrCount = 256;
+    static const int kPCForStop = 4095;
+    static const int kMaxMemory = 4095;
+    int counter = 0;
 
-    int pc_;
-    int accum_;
+    int pc_; //contins address of next instruction to be executed
+    int accum_; //contains temporary data
 
     string ToString();
 

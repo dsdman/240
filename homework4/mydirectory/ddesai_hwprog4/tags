@@ -4,8 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BitStringToDec	globals.cc	/^int Globals::BitStringToDec(const string thebits) const {$/;"	f	class:Globals
-DecToBitString	globals.cc	/^string Globals::DecToBitString(const int value, const int how_many_bits) const {$/;"	f	class:Globals
+BinToDec	globals.cc	/^int Globals::BinToDec(const string& thebits) const {$/;"	f	class:Globals
+BitStringToDec	globals.cc	/^int Globals::BitStringToDec(const string& thebits) const {$/;"	f	class:Globals
+DecToBitString	globals.cc	/^string Globals::DecToBitString(const int& value, const int& how_many_bits) const {$/;"	f	class:Globals
 DoADD	pullet16interpreter.cc	/^void Interpreter::DoADD(string addr, string target) {$/;"	f	class:Interpreter
 DoAND	pullet16interpreter.cc	/^void Interpreter::DoAND(string addr, string target) {$/;"	f	class:Interpreter
 DoBAN	pullet16interpreter.cc	/^void Interpreter::DoBAN(string addr, string target) {$/;"	f	class:Interpreter
@@ -16,6 +17,7 @@ DoSTC	pullet16interpreter.cc	/^void Interpreter::DoSTC(string addr, string targe
 DoSTP	pullet16interpreter.cc	/^void Interpreter::DoSTP() {$/;"	f	class:Interpreter
 DoSUB	pullet16interpreter.cc	/^void Interpreter::DoSUB(string addr, string target) {$/;"	f	class:Interpreter
 DoWRT	pullet16interpreter.cc	/^void Interpreter::DoWRT(ofstream& out_stream) {$/;"	f	class:Interpreter
+DumpData	pullet16interpreter.cc	/^void Interpreter::DumpData(const vector<string>& input) {$/;"	f	class:Interpreter
 Execute	pullet16interpreter.cc	/^void Interpreter::Execute(string opcode, string addr, string target,$/;"	f	class:Interpreter
 FlagAddressOutOfBounds	pullet16interpreter.cc	/^void Interpreter::FlagAddressOutOfBounds(int address) {$/;"	f	class:Interpreter
 GLOBALS_H	globals.h	12;"	d
@@ -43,18 +45,18 @@ ParseHexOperand	hex.cc	/^void Hex::ParseHexOperand() {$/;"	f	class:Hex
 ToString	hex.cc	/^string Hex::ToString() const {$/;"	f	class:Hex
 ToString	pullet16interpreter.cc	/^string Interpreter::ToString() {$/;"	f	class:Interpreter
 TwosComplementInteger	pullet16interpreter.cc	/^int Interpreter::TwosComplementInteger(int what) {$/;"	f	class:Interpreter
-accum_	pullet16interpreter.h	/^    int accum_;$/;"	m	class:Interpreter
+accum_	pullet16interpreter.h	/^    int accum_; \/\/contains temporary data$/;"	m	class:Interpreter
 error_messages_	hex.h	/^    string error_messages_;$/;"	m	class:Hex
 globals_	hex.h	/^    Globals globals_;$/;"	m	class:Hex
 globals_	pullet16interpreter.h	/^    Globals globals_;$/;"	m	class:Interpreter
 is_invalid_	hex.h	/^    bool is_invalid_;$/;"	m	class:Hex
-kMaxInstrCount	pullet16interpreter.h	/^    static const int kMaxInstrCount = 128;$/;"	m	class:Interpreter
+kMaxInstrCount	pullet16interpreter.h	/^    static const int kMaxInstrCount = 256;$/;"	m	class:Interpreter
 kMaxMemory	globals.h	/^    static const int kMaxMemory = 4096;$/;"	m	class:Globals
-kPCForStop	pullet16interpreter.h	/^    static const int kPCForStop = 7777;$/;"	m	class:Interpreter
+kPCForStop	pullet16interpreter.h	/^    static const int kPCForStop = 4095;$/;"	m	class:Interpreter
 kTag	main.cc	/^static const string kTag = "Main: ";$/;"	v	file:
 main	main.cc	/^int main(int argc, char *argv[]) {$/;"	f
 memory_	pullet16interpreter.h	/^    vector<string> memory_;$/;"	m	class:Interpreter
-pc_	pullet16interpreter.h	/^    int pc_;$/;"	m	class:Interpreter
+pc_	pullet16interpreter.h	/^    int pc_; \/\/contins address of next instruction to be executed$/;"	m	class:Interpreter
 text_	hex.h	/^    string text_;$/;"	m	class:Hex
 ~Hex	hex.cc	/^Hex::~Hex() {$/;"	f	class:Hex
 ~Interpreter	pullet16interpreter.cc	/^Interpreter::~Interpreter() {$/;"	f	class:Interpreter
