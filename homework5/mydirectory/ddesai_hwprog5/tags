@@ -31,6 +31,7 @@ HasAnError	hex.cc	/^bool Hex::HasAnError() const {$/;"	f	class:Hex
 Hex	hex.cc	/^Hex::Hex() {$/;"	f	class:Hex
 Hex	hex.cc	/^Hex::Hex(string text, Globals globals) {$/;"	f	class:Hex
 Hex	hex.h	/^class Hex {$/;"	c
+HexToDec	globals.cc	/^int Globals::HexToDec(const string& thehex) const {$/;"	f	class:Globals
 INTERPRETER_H	pullet16interpreter.h	11;"	d
 Init	hex.cc	/^void Hex::Init(string text, Globals globals) {$/;"	f	class:Hex
 Interpret	pullet16interpreter.cc	/^void Interpreter::Interpret(Scanner& data_scanner, ofstream& out_stream) {$/;"	f	class:Interpreter
@@ -46,12 +47,14 @@ ToString	hex.cc	/^string Hex::ToString() const {$/;"	f	class:Hex
 ToString	pullet16interpreter.cc	/^string Interpreter::ToString() {$/;"	f	class:Interpreter
 TwosComplementInteger	pullet16interpreter.cc	/^int Interpreter::TwosComplementInteger(int what) {$/;"	f	class:Interpreter
 accum_	pullet16interpreter.h	/^    int accum_; \/\/contains temporary data$/;"	m	class:Interpreter
+counter	pullet16interpreter.h	/^    int counter = 0;$/;"	m	class:Interpreter
 error_messages_	hex.h	/^    string error_messages_;$/;"	m	class:Hex
 globals_	hex.h	/^    Globals globals_;$/;"	m	class:Hex
 globals_	pullet16interpreter.h	/^    Globals globals_;$/;"	m	class:Interpreter
 is_invalid_	hex.h	/^    bool is_invalid_;$/;"	m	class:Hex
 kMaxInstrCount	pullet16interpreter.h	/^    static const int kMaxInstrCount = 256;$/;"	m	class:Interpreter
 kMaxMemory	globals.h	/^    static const int kMaxMemory = 4096;$/;"	m	class:Globals
+kMaxMemory	pullet16interpreter.h	/^    static const int kMaxMemory = 4095;$/;"	m	class:Interpreter
 kPCForStop	pullet16interpreter.h	/^    static const int kPCForStop = 4095;$/;"	m	class:Interpreter
 kTag	main.cc	/^static const string kTag = "Main: ";$/;"	v	file:
 main	main.cc	/^int main(int argc, char *argv[]) {$/;"	f

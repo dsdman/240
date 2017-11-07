@@ -26,7 +26,7 @@ class Globals {
     static const int kMaxMemory = 4096;
 
     int BitStringToDec(const string& thebits) const;
-    string DecToBitString(const int& value, const int& how_many_bits) const;
+    string DecToBitString(const int value, const int how_many_bits) const;
     int HexToDec(const string& thehex) const;
 
   private:

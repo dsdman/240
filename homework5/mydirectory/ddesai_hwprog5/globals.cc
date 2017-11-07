@@ -100,22 +100,24 @@ int Globals::BinToDec(const string& thebits) const {
  *   value - the value to convert
  *   how_many_bits - the length of the result
 **/
-string Globals::DecToBitString(const int& value, const int& how_many_bits) const {
+string Globals::DecToBitString(const int value, const int how_many_bits) const {
 #ifdef EBUG
   Utils::log_stream << "enter DecToBitString\n";
 #endif
+
   string bitsetvalue = "";
-  bitset <16> the_bits(value);
-  //use the bitset class to do it for me
-  bitsetvalue = the_bits.to_string();
-//  if (value < 0) {
-//  } else if (value == 0) {
-//    for (int i = 0; i < how_many_bits; ++i) {
-//      bitsetvalue += "0";
-//    }
-//  } else {
-//    
-//  }
+  if (how_many_bits == 12) {
+    bitsetvalue = std::bitset<12>(value).to_string();
+  } else if (how_many_bits == 16) {
+    bitsetvalue = std::bitset<16>(value).to_string();
+  } else if (how_many_bits == 8) {
+    bitsetvalue = std::bitset<8>(value).to_string(); 
+  } else {
+    Utils::log_stream << "ERROR DECTOBITSTRING " << value << " "
+                      << how_many_bits << endl;
+    exit(0);
+  }
+
 #ifdef EBUG
   Utils::log_stream << "leave DecToBitString\n";
 #endif
@@ -214,19 +216,3 @@ int Globals::HexToDec(const string& thehex) const {
   }
   return out;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

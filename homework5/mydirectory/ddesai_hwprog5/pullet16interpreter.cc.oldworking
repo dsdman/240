@@ -398,30 +398,71 @@ void Interpreter::Load(Scanner& in_scanner, string binary_filename) {
 #ifdef EBUG
   Utils::log_stream << "enter Load\n"; 
 #endif
-
   globals_ = Globals();
-  vector<string> bin;
+  string thebits = "";
+  //variables for reading binary file
+  //incudes size counter, char representation, short representation
+  //stream for reading the file, pointer to read from, and data to store
+  int size_binary = 0;
+  vector<char> bin;
+  vector<short> bin_num;
+  ifstream file(binary_filename, ifstream::binary);
+  char* contents;  
+  char current_binary_char;
+  int current_memory_byte = 0;
+  //write ascii to binary file
+  std::ofstream output ("myascii.bin", std::ofstream::binary);
+
+  //DEBUG "OLD SCHOOL" CODE TAKEN FROM PROFESSOR BUELL'S EXAMPLE PROGRAM
+  const char *name_bin = binary_filename.c_str();
+  FILE *fp = fopen(name_bin, "r");
+  char c;
+  printf("FILE ");
+  while ((c = getc(fp)) != EOF)
+  {
+    printf(" %2d", c);
+  }
+  printf("\n");
 
   //load the ascii into vector and dump it
   while (in_scanner.HasNext()) {
-    this->memory_.push_back(in_scanner.NextLine());
+    thebits = in_scanner.NextLine();
+    this->memory_.push_back(thebits);
+    for (int i = 0; i < thebits.size(); ++i) {
+      output.write(&thebits.at(i), 1);
+    }
   }
   cout << "ascii memory data: " << endl;
   DumpData(this->memory_);
-
-  //load the binary into vector and dump it
-  in_scanner.Close();
-  in_scanner.OpenFile(binary_filename);
-  while (in_scanner.HasNext()) {
-    bin.push_back(in_scanner.NextLine());
-  }
-  cout << "binary memory data: " << endl;
-  DumpData(bin);
   
-  // Open the binary file and get the size in bytes of the file.
+  //NOTE THAT THE NEXT SEVERAL BLOCKS OF CODE WERE MODIFIED FROM
+  //EXAMPLE PROGRAMS AND CPLUSPLUS.com
 
-  // Open the binary file and read the characters, pushing them into a
-  // 'vector' of 'char' data.
+  //Open the binary file and get the size in bytes of the file.
+  if (file) {
+    file.seekg (0, file.end);
+    size_binary = file.tellg();
+    file.seekg (0, file.beg);
+  }
+  cout << "SIZE OF THE BINARY FILE: " << size_binary << endl;
+
+  //Open the binary file and read the characters, pushing them into a
+  //'vector' of 'char' data.
+  if (file) {
+    contents = new char [1];
+    for (short i = 0; i < size_binary; ++i) {
+      //read a character and dereference it into the vectors
+      file.read(contents, 1);
+      current_binary_char = *contents;
+      bin.push_back(current_binary_char);
+      bin_num.push_back(static_cast<short>(current_binary_char));
+    }
+  }
+  file.close();
+  cout << "CONTENTS OF BINARY FILE: " << endl;
+  for (int i = 0; i < bin.size(); ++i) {
+    cout << "CHAR " << bin.at(i) << "  SHORT " << bin_num.at(i) << endl;
+  }
 
   // Decode the binary, two bytes at a time, and compare to the ASCII that
   // we read in earlier. Die if there's a discrepancy.

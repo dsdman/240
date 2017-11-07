@@ -6,7 +6,7 @@
  *
  * Author: Duncan Buell
  * Used with permission and modified by: Dylan Desai
- * Date: 16 October 2017
+ * Date: 6 Nov 2017
 **/
 
 /******************************************************************************
@@ -66,7 +66,13 @@ void Interpreter::DoBAN(string addr, string target) {
 #ifdef EBUG
   Utils::log_stream << "enter doBAN\n"; 
 #endif
-   
+  //cout << "doBAN: " << pc_ << " A: " << addr << " T: " << target << endl;
+  if (accum_ < 0 && counter <= kMaxInstrCount) {
+    this->DoBR(addr, target);
+    counter++;
+  } else {
+    cout << "reached 256 instructions. exiting" << endl;
+  }
 #ifdef EBUG
   Utils::log_stream << "leave doBAN\n"; 
 #endif
@@ -80,7 +86,15 @@ void Interpreter::DoBR(string addr, string target) {
 #ifdef EBUG
   Utils::log_stream << "enter doBR\n"; 
 #endif
-  
+  //cout << "doBR: " << pc_ << " A: " << addr << " T: " << target << endl;
+  pc_ = globals_.BitStringToDec(addr) - 1;
+  //cout << "address: " << addr << endl;
+  //cout << "target: " << target << endl;
+  //make the pc equal to the target to jump to the target
+  //take last twelve, as an integer, use that integer to locate the memory at that location
+  //builder >> thething;
+  //pc_ = thething;
+  //pc_ = memory_.at(globals_.BitStringToDec(target));
 #ifdef EBUG
   Utils::log_stream << "leave doBR\n"; 
 #endif
@@ -96,6 +110,7 @@ void Interpreter::DoLD(string addr, string target) {
 #endif
   //load the accumulator with value at addr
   accum_ = globals_.BitStringToDec(target);
+  cout << "doLD " << "accumulator: " << accum_ << endl;
 #ifdef EBUG
   Utils::log_stream << "leave doLD\n"; 
 #endif
@@ -109,10 +124,15 @@ void Interpreter::DoRD(Scanner& data_scanner) {
 #ifdef EBUG
   Utils::log_stream << "enter doRD\n"; 
 #endif
+  string hex = "";
+  int hexDec = 0;
 
-  while (data_scanner.HasNext()) {
-     
-  }
+  hex = data_scanner.NextLine();
+  hexDec = globals_.HexToDec(hex);
+  cout << "hex to dec: " << hexDec << endl;
+  cout << "accumulator in read: " << accum_ << endl;
+  accum_ = hexDec;
+ 
 #ifdef EBUG
   Utils::log_stream << "leave doRD\n"; 
 #endif
@@ -127,7 +147,9 @@ void Interpreter::DoSTC(string addr, string target) {
   Utils::log_stream << "enter doSTC\n"; 
 #endif
   //hold the address to store and accumulator
-  int addr_int = globals_.BitStringToDec(target);
+  //int addr_int = globals_.BitStringToDec(target);
+  int addr_int = globals_.BitStringToDec(addr);
+
   string accum_string = globals_.DecToBitString(accum_, 16);
 
   //store the accumulator and clear
@@ -176,6 +198,8 @@ void Interpreter::DoWRT(ofstream& out_stream) {
 #ifdef EBUG
   Utils::log_stream << "enter doWRT\n"; 
 #endif
+  //cout everything
+  cout << "doWRT: " << "accumulator: " << accum_ << " PC: " << pc_ << endl;
   //write from accumulator to file
   out_stream << "WRITE  " << "OUTPUT  " << to_string(accum_) << "  " 
              << globals_.DecToBitString(accum_, 16) << endl;
@@ -216,16 +240,18 @@ void Interpreter::Interpret(Scanner& data_scanner, ofstream& out_stream) {
 
     // This is an interpreter thing. We prevent infinite loops from being
     // interpreted by having a timeout feature on instruction count.
-  for (int i = 0; i < memory_.size(); ++i) {
-    opcode = memory_.at(i).substr(0,3);
+  //for (int i = 0; i < memory_.size(); ++i) { old working
+  pc_ = 0;
+  while (pc_ < memory_.size()) {
+    opcode = memory_.at(pc_).substr(0,3);
     //determine opcode
     if (opcode == "111") {
       //it is RD, WRT, or STP and the whole 16 bits is the opcode in hex
-      opcode = memory_.at(i);
+      opcode = memory_.at(pc_);
     } else {
       //the next bit deterines addressing and the remaining is the address
-      is_indirect = memory_.at(i).at(3);
-      address = memory_.at(i).substr(4);
+      is_indirect = memory_.at(pc_).at(3);
+      address = memory_.at(pc_).substr(4);
 
       //handle indirect addressing
       if (is_indirect == "0") {
@@ -239,7 +265,8 @@ void Interpreter::Interpret(Scanner& data_scanner, ofstream& out_stream) {
 
     //execute instruction if the address is a valid one
     
-    this->Execute(opcode, address, target, data_scanner, out_stream);
+      cout << "INTERPRET: " << pc_ << " OP: " << opcode << " A: " << address << " T: " << target << endl;
+      this->Execute(opcode, address, target, data_scanner, out_stream);
 
     //bump program counter by 1
     ++pc_;
@@ -258,6 +285,8 @@ void Interpreter::Execute(string opcode, string addr, string target,
 #ifdef EBUG
   Utils::log_stream << "enter Execute\n"; 
 #endif
+  //cout everything
+  cout << "Execute: " << "opcode: " << opcode <<  " accumulator: " << accum_ << " PC: " << pc_ << " address: " << addr << " target: " << target << endl; 
   //execute depending on what the opcode is
   if (opcode == "1110000000000001") {
     //do read
@@ -369,9 +398,26 @@ void Interpreter::Load(Scanner& in_scanner, string binary_filename) {
 #ifdef EBUG
   Utils::log_stream << "enter Load\n"; 
 #endif
-
   globals_ = Globals();
   vector<string> bin;
+
+  //for writing the binary (taken from example 40)
+  string mybinfile = "thebin.bin";
+  const char* thefile = binary_filename.c_str();
+  char* buffer; 
+  short thebinary = 0; //value to dereference
+  //for reading the binary
+  std::ifstream input (binary_filename, std::ifstream::binary);
+  int size_binary = 0;
+  char* buffer2; 
+  short byte1, byte2;
+  //for expanding the binary to ascii
+  std::ifstream input1 (binary_filename);
+  char* buffer3;
+  vector<string> ascii_values;
+  string ascii_line;
+  int dec1 = 0;
+  int dec2 = 0;
 
   //load the ascii into vector and dump it
   while (in_scanner.HasNext()) {
@@ -380,25 +426,74 @@ void Interpreter::Load(Scanner& in_scanner, string binary_filename) {
   cout << "ascii memory data: " << endl;
   DumpData(this->memory_);
 
-  //load the binary into vector and dump it
-  in_scanner.Close();
-  in_scanner.OpenFile(binary_filename);
-  while (in_scanner.HasNext()) {
-    bin.push_back(in_scanner.NextLine());
+  //the following code to write to the binary file was taken from example 40
+  std::ofstream output (thefile, std::ofstream::binary);
+  if (output) {
+    buffer = new char [8];
+
+    for(short i = 0; i < memory_.size(); ++i)
+    {
+      thebinary = static_cast<short>(globals_.BitStringToDec(memory_.at(i)));
+      buffer = reinterpret_cast<char*>(&thebinary);
+      output.write(buffer, 2);
+    }
+    output.close();
   }
-  cout << "binary memory data: " << endl;
-  DumpData(bin);
-  
-  // Open the binary file and get the size in bytes of the file.
+
+  //PLEASE NOTE THAT THE BELOW CHUNKS OF CODE ARE FROM EXAMPLE 40 
+  //AND CPLUSPLUS.com
+  //Open the binary file and get the size in bytes of the file.
+  if (input) {
+    input.seekg (0, input.end);
+    size_binary = input.tellg() / 2; //half since we are going to read a byte
+    input.seekg (0, input.beg);
+  }
+  cout << "THE SIZE OF THE BINARY FILE: " << size_binary << endl;
 
   // Open the binary file and read the characters, pushing them into a
   // 'vector' of 'char' data.
+  if (input) {
+    buffer2 = new char [1];
+    for (int i = 0; i < size_binary; ++i) {
+      input.read(buffer2, 1); // read character
+      byte1 = *buffer2;      // dereference
+      input.read(buffer2, 1);
+      byte2 = *buffer2;
+      //printf("SHORT %2d %2d    %4d\n", buffer2[0], byte1, byte2);
+      printf("SHORT %2d %2d    %4d\n", byte1, byte2);
+    }
+  }
 
   // Decode the binary, two bytes at a time, and compare to the ASCII that
   // we read in earlier. Die if there's a discrepancy.
   // CAVEAT: We take extra care here because a 'char' is actually an 'int'
   // and thus we need to just pick off the 8 low bits and the next 8 bits
   // and avoid issues of sign propagation. 
+  if (input1) {
+    buffer3 = new char[8];
+    for (int i = 0; i < size_binary; ++i) {
+      //grab the bytes
+      input1.read(buffer3, 1); 
+      byte1 = *buffer3;      
+      input1.read(buffer3, 1);
+      byte2 = *buffer3;
+
+      //build the string from the bytes
+      ascii_line += globals_.DecToBitString(static_cast<int>(byte2), 8);
+      ascii_line += globals_.DecToBitString(static_cast<int>(byte1), 8);
+      ascii_values.push_back(ascii_line);
+      cout << "F " << byte1 << " S " << byte2 << " ascii " << ascii_line << endl;
+      ascii_line = "";
+    }
+  }
+
+  //compare the ascii and the memory
+  for (int i = 0;  i < ascii_values.size(); ++i) {
+    cout << "mem: " << memory_.at(i) << " ascii: " << ascii_values.at(i) << endl;
+    if (memory_.at(i) != ascii_values.at(i)) {
+      cout << "error: memory does not match binary." << endl;
+    }
+  }
 
 #ifdef EBUG
   Utils::log_stream << "leave Load\n"; 

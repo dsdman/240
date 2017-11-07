@@ -1,3 +1,2 @@
 Main: Beginning execution
 Main: logfile 'xlog4.txt'
-Main: Ending execution

@@ -22,7 +22,7 @@ using namespace std;
 
 #include "globals.h"
 #include "hex.h"
-#include <sstream>;
+#include <sstream>
 
 class Interpreter {
   public:
