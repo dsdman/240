@@ -101,10 +101,12 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
           }
 
           //get the commments
-          comments = line.substr(20);
-          if (comments.at(0) != '*') {
-            comments = "nullcomments";
-          }
+		  if (line.size() > 19) {
+		    comments = line.substr(20);
+		    if (comments.at(0) != '*') {
+			  comments = "nullcomments";
+			}
+		  }
         }
         //put together the codeline
         //cout << "(lc) " << linecounter << " (pc) " << pc << " (label) " 
