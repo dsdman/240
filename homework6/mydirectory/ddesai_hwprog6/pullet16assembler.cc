@@ -74,45 +74,47 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
         if (label == "   ") {
           label = "nulllabel";
         }
-
         //get the opcode
         mnemonic = line.substr(4,3);
         if (mnemonic == "   ") {
           mnemonic = "nullmnemonic";
         }
-
         //rest of data if the mnemonic is not a 'STP' or (english or) 'END'
         if (mnemonic != "STP" && mnemonic != "END") {
-          addr = line.substr(8,1);
-          if (addr != "*") {
-            addr = " ";
+          if (line.size() > 7) {
+            addr = line.substr(8,1);
+            if (addr != "*") {
+              addr = " ";
+            }
           }
-
           //get the symbolic operand
-          symoperand = line.substr(10,3);
-          if (symoperand == "   ") {
-            symoperand = "nullsymoperand";
+          if (line.size() > 9) {
+            symoperand = line.substr(10,3);
+            if (symoperand == "   ") {
+              symoperand = "nullsymoperand";
+            }
           }
-
           //get the hex operand
-          hexoperand = line.substr(14,5);
-          if (hexoperand == "    ") {
-            hexoperand = "     ";
+          if (line.size() > 13) {
+            hexoperand = line.substr(14,5);
+            if (hexoperand == "    ") {
+              hexoperand = "     ";
+            }
           }
-
           //get the commments
-		  if (line.size() > 19) {
-		    comments = line.substr(20);
-		    if (comments.at(0) != '*') {
-			  comments = "nullcomments";
-			}
-		  }
+		      if (line.size() > 19) {
+            comments = line.substr(20);
+            if (comments.at(0) != '*') {
+            comments = "nullcomments";
+            }
+		      }
         }
-        //put together the codeline
         //cout << "(lc) " << linecounter << " (pc) " << pc << " (label) " 
         //     << label << " (mnemonic) " << mnemonic << " (addr) " << addr
         //     << " (symoperand) " << symoperand << " (hex) " << hexoperand
         //     << " (comments) " << comments << " (code) " << code << endl;
+
+        //put together the codeline
         temp.SetCodeLine(linecounter, pc, label, mnemonic, addr, symoperand, hexoperand, comments, code);
         out.push_back(temp);
       }
