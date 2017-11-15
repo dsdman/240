@@ -59,7 +59,7 @@ class Assembler {
     void PrintSymbolTable();
     void SetNewPC(CodeLine codeline);
     void UpdateSymbolTable(int programcounter, string label);
-
+    vector<CodeLine> GetCode(Scanner& in_scanner);
     Globals globals_;
 
 };

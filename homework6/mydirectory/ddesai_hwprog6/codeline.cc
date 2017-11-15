@@ -33,9 +33,7 @@ CodeLine::~CodeLine() {
  * Accessor for the 'addr_'.
 **/
 string CodeLine::GetAddr() const {
-  string returnvalue;
-
-  return returnvalue;
+  return addr_;
 }
 
 /******************************************************************************
@@ -91,12 +89,22 @@ string CodeLine::GetSymOperand() const {
  * Boolean indicator of the presence of a label.
 **/
 bool CodeLine::HasLabel() const {
+  if (label_ != "nulllabel") {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /******************************************************************************
  * Boolean indicator of the presence of a symbolic operand.
 **/
 bool CodeLine::HasSymOperand() const {
+  if (symoperand_ != "nullsymoperand") {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /******************************************************************************
@@ -127,6 +135,18 @@ bool CodeLine::IsAllComment() const {
 void CodeLine::SetCodeLine(int linecounter, int pc, string label,
                            string mnemonic, string addr, string symoperand,
                            string hexoperand, string comments, string code) {
+  
+  is_all_comment_ = false;
+  linecounter_ = linecounter;
+  pc_ = pc;
+  label_ = label;
+  mnemonic_ = mnemonic;
+  addr_ = addr;
+  symoperand_ = symoperand;
+  Hex temp(hexoperand, globals_);
+  hex_ = temp;
+  comments_ = comments;
+  code_ = code;
 }
 
 /******************************************************************************
@@ -137,6 +157,21 @@ void CodeLine::SetCodeLine(int linecounter, int pc, string label,
  *   line - the code line that is taken to be all comments
 **/
 void CodeLine::SetCommentsOnly(int linecounter, string line) {
+  //the comment is the whole line
+  is_all_comment_ = true;
+  linecounter_ = linecounter;
+  comments_ = line;
+
+  //everything else at defaults
+  pc_ = 0;
+  label_ = "nulllabel"; 
+  mnemonic_ = "nullmnemonic";
+  addr_ = " ";
+  symoperand_ = "nullsymoperand";
+  string hexoperand = "     ";
+  Hex temp(hexoperand, globals_);
+  hex_ = temp;
+  code_ = "nullcode";
 }
 
 /******************************************************************************
@@ -183,13 +218,18 @@ string CodeLine::ToString() const
 #endif
   string s = "";
 
+  //cout << "(lc) " << linecounter_ << " (pc) " << pc_ << " (label) " 
+  //     << label_ << " (mnemonic) " << mnemonic_ << " (addr) " << addr_
+  //     << " (symoperand) " << symoperand_ << " (hex) " << hex_.ToString() << " " << hex_.IsNotNull()
+  //     << " (comments) " << comments_ << " (code) " << code_ << endl;
 
   s += Utils::Format(linecounter_, 5) + " ";
 
-  s += Utils::Format(pc_, 4) + "  ";
-  s += globals_.DecToBitString(pc_, 12) + " ";
+  //s += Utils::Format(pc_, 4) + "  ";
+  //s += globals_.DecToBitString(pc_, 12) + " ";
 
   if (code_ == "nullcode") {
+  //if (code_ != "nullcode") {
     s += Utils::Format("xxxx xxxx xxxx xxxx", 19);
   } else {
     s = s       + Utils::Format((code_).substr( 0, 4), 4)
@@ -222,7 +262,7 @@ string CodeLine::ToString() const
     s += " " + Utils::Format(symoperand_, 3);
   }
 
-  if (hex_.IsNotNull()) {
+  if (!(hex_.IsNotNull())) {
     s += " " + Utils::Format(".....", 5);
   } else {
     s += " " + hex_.ToString();
@@ -231,7 +271,8 @@ string CodeLine::ToString() const
   if (comments_ != "nullcomments") {
     if (is_all_comment_) {
       s = Utils::Format(linecounter_, 5) + " ";
-      s += Utils::Format(" ", 41);
+      //s += Utils::Format(" ", 41);
+      s += Utils::Format(" ", 42);
       s += " " + comments_;
     } else {
       s += " " + comments_;

@@ -39,8 +39,7 @@ string Globals::DecToBitString(int value, const int how_many_bits) const {
   string bitsetvalue = "";
   if (how_many_bits == 12) {
     bitsetvalue = std::bitset<12>(value).to_string();
-  }
-  else if (how_many_bits == 16) {
+  } else if (how_many_bits == 16) {
     bitsetvalue = std::bitset<16>(value).to_string();
   } else {
     Utils::log_stream << "ERROR DECTOBITSTRING " << value << " " << how_many_bits << endl;

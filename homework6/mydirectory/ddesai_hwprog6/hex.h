@@ -22,7 +22,7 @@ using namespace std;
 class Hex {
   public:
     Hex();
-    Hex(string hexoperand, Globals globals);
+    Hex(string text, Globals globals);
     virtual ~Hex();
 
     string GetErrorMessages() const;

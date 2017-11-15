@@ -32,6 +32,95 @@ Assembler::~Assembler() {
 **/
 
 /******************************************************************************
+ * Function 'GetCode'
+ * This function returns a vector of 'CodeLine' From a file scanner
+ *
+ * Parameters:
+ *  in_scanner - the scanner to read for source code
+ *
+**/
+vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
+  //temporary variables to create instance of 'CodeLine'
+  string line = "dummyline";
+  int linecounter = 0;
+  CodeLine temp;
+  //output variable
+  vector<CodeLine> out;
+
+  //get metainfo for instance of 'CodeLine' if line size is not zero
+  cout << "RAW FILE CODE: " << endl;
+  while (line.size() > 0) {
+    //temporary variables for instance of codeline
+    int pc = 0;
+    string label = "nulllabel"; 
+    string mnemonic = "nullmnemonic";
+    string addr = " ";
+    string symoperand = "nullsymoperand";
+    string hexoperand = "     ";
+    string comments = "nullcomments";
+    string code = "nullcode";
+
+    //get line
+    line = in_scanner.NextLine();
+    cout << line << endl;
+    if (line.size() != 0) {
+      //the whole thing is a comment
+      if (line.at(0) == '*') {
+        temp.SetCommentsOnly(linecounter, line);
+        out.push_back(temp);
+      } else {
+        //get the label
+        label = line.substr(0,3);
+        if (label == "   ") {
+          label = "nulllabel";
+        }
+
+        //get the opcode
+        mnemonic = line.substr(4,3);
+        if (mnemonic == "   ") {
+          mnemonic = "nullmnemonic";
+        }
+
+        //rest of data if the mnemonic is not a 'STP' or (english or) 'END'
+        if (mnemonic != "STP" && mnemonic != "END") {
+          addr = line.substr(8,1);
+          if (addr != "*") {
+            addr = " ";
+          }
+
+          //get the symbolic operand
+          symoperand = line.substr(10,3);
+          if (symoperand == "   ") {
+            symoperand = "nullsymoperand";
+          }
+
+          //get the hex operand
+          hexoperand = line.substr(14,5);
+          if (hexoperand == "    ") {
+            hexoperand = "     ";
+          }
+
+          //get the commments
+          comments = line.substr(20);
+          if (comments.at(0) != '*') {
+            comments = "nullcomments";
+          }
+        }
+        //put together the codeline
+        //cout << "(lc) " << linecounter << " (pc) " << pc << " (label) " 
+        //     << label << " (mnemonic) " << mnemonic << " (addr) " << addr
+        //     << " (symoperand) " << symoperand << " (hex) " << hexoperand
+        //     << " (comments) " << comments << " (code) " << code << endl;
+        temp.SetCodeLine(linecounter, pc, label, mnemonic, addr, symoperand, hexoperand, comments, code);
+        out.push_back(temp);
+      }
+    }
+    linecounter += 1;
+  }
+  return out;
+}
+
+/******************************************************************************
  * Function 'Assemble'.
  * This top level function assembles the code.
  *
@@ -43,6 +132,8 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename, ofstream& 
 #ifdef EBUG
   Utils::log_stream << "enter Assemble\n"; 
 #endif
+  //grab the codeLines
+  codelines_ = this->GetCode(in_scanner);
 
   ////////////////////////////////////////////////////////////////////////////
   // Pass one
@@ -56,6 +147,7 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename, ofstream& 
 
   ////////////////////////////////////////////////////////////////////////////
   // Dump the results.
+  cout << "AS 'CODELINES:' " << endl;
   this->PrintCodeLines();
   this->PrintSymbolTable();
 
@@ -102,6 +194,7 @@ string Assembler::GetInvalidMessage(string leadingtext, Hex hex) {
  *   badtext - the undefined symbol text
 **/
 string Assembler::GetUndefinedMessage(string badtext) {
+  string returnvalue = "";
 
   return returnvalue;
 }
@@ -152,9 +245,11 @@ void Assembler::PrintCodeLines() {
   Utils::log_stream << "enter PrintCodeLines\n"; 
 #endif
   string s = "";
+  int counter = 0;
 
   for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
     s += (*iter).ToString() + '\n';
+    //s += (*iter).ToString();
   }
 
   if (!found_end_statement_) {
@@ -162,6 +257,12 @@ void Assembler::PrintCodeLines() {
     has_an_error_ = true;
   }
 
+  cout << s << endl;
+  //for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
+  //  //cout << "where: " << counter << endl;
+  //  cout << (*iter).ToString() << endl;
+  //  counter += 1;
+  //}
 #ifdef EBUG
   Utils::log_stream << "leave PrintCodeLines\n"; 
 #endif
@@ -177,6 +278,30 @@ void Assembler::PrintMachineCode(string binary_filename, ofstream& out_stream) {
 #endif
   string s = "";
   Utils::log_stream << "enter PrintMachineCode" << " " << binary_filename << endl; 
+  cout << "machine code:" << endl;
+  std::ifstream input (binary_filename, std::ifstream::binary);
+  short byte1 = 0;
+  short byte2 = 0;
+  int size_binary = 0;
+  char* buffer2; 
+
+  if (input) {
+    input.seekg (0, input.end);
+    size_binary = input.tellg() / 2; //half since we are going to read a byte
+    input.seekg (0, input.beg);
+  }
+  if (input) {
+    buffer2 = new char [1];
+    for (int i = 0; i < size_binary; ++i) {
+      input.read(buffer2, 1); // read character
+      byte1 = *buffer2;      // dereference
+      input.read(buffer2, 1);
+      byte2 = *buffer2;
+      //printf("SHORT %2d %2d    %4d\n", buffer2[0], byte1, byte2);
+      printf("SHORT %2d %2d    %4d\n", byte1, byte2);
+    }
+  }
+  input.close();
 
 #ifdef EBUG
   Utils::log_stream << "leave PrintMachineCode" << endl; 
