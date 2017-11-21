@@ -13,9 +13,6 @@
  * Constructor
 **/
 Symbol::Symbol() {
-  //initialize default values
-  text_ = "nulllabel";
-  location_ = 0;
 }
 
 /******************************************************************************

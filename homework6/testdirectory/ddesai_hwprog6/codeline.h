@@ -33,7 +33,7 @@ class CodeLine {
     Hex GetHexObject() const;
     string GetLabel() const;
     string GetMnemonic() const;
-    int GetPC() const;
+    string GetPC() const;
     string GetSymOperand() const;
 
     bool HasLabel() const;

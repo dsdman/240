@@ -1,5 +1,5 @@
 Main: Beginning execution
-Main: logfile 'MYLOG1.txt'
+Main: logfile 'MYLOG.txt'
 
 
 PASS ONE

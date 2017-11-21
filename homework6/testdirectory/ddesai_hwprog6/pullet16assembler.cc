@@ -44,7 +44,6 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
   string line = "dummyline";
   int linecounter = 0;
   CodeLine temp;
-  int pc = 0;
   //output variable
   vector<CodeLine> out;
 
@@ -52,6 +51,7 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
   cout << "RAW FILE CODE: " << endl;
   while (line.size() > 0) {
     //temporary variables for instance of codeline
+    int pc = 0;
     string label = "nulllabel"; 
     string mnemonic = "nullmnemonic";
     string addr = " ";
@@ -69,9 +69,6 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
         temp.SetCommentsOnly(linecounter, line);
         out.push_back(temp);
       } else {
-        //increment program counter
-        ++pc;
-
         //get the label
         label = line.substr(0,3);
         if (label == "   ") {
@@ -135,8 +132,7 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
  *   in_scanner - the scanner to read for source code
  *   out_stream - the output stream to write to
 **/
-void Assembler::Assemble(Scanner& in_scanner, string binary_filename, 
-                         ofstream& out_stream) {
+void Assembler::Assemble(Scanner& in_scanner, string binary_filename, ofstream& out_stream) {
 #ifdef EBUG
   Utils::log_stream << "enter Assemble\n"; 
 #endif
@@ -147,24 +143,6 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
   // Pass one
   // Produce the symbol table and detect errors in symbols.
   Utils::log_stream << endl << endl << "PASS ONE" << endl;
-  //temporary label variable
-  string label = "";
-
-  //for each codeline with a symbol, add it to the symbol table
-  for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
-    //map<string, Symbol> symboltable_;
-    if ( (*iter).GetLabel() != "nulllabel") {
-      label = (*iter).GetLabel();
-      Symbol temp(label, (*iter).GetPC() );
-      symboltable_.insert(pair<string, Symbol>(label, temp) );
-    }
-  }
-
-  //print symbol table
-  cout << "SYMBOL TABLE: " << endl;
-  for (auto& x: symboltable_) {
-    cout << x.first << ": " << x.second.ToString() << endl;
-  }
 
   ////////////////////////////////////////////////////////////////////////////
   // Pass two
@@ -173,7 +151,7 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
 
   ////////////////////////////////////////////////////////////////////////////
   // Dump the results.
-  cout << "\nAS 'CODELINES:' " << endl;
+  cout << "AS 'CODELINES:' " << endl;
   this->PrintCodeLines();
   this->PrintSymbolTable();
 

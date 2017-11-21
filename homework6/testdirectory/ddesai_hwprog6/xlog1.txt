@@ -1,0 +1,14 @@
+Main: Beginning execution
+Main: logfile 'xlog1.txt'
+
+
+PASS ONE
+
+
+PASS TWO
+
+SYMBOL TABLE
+    SYM LOC FLAGS
+
+enter PrintMachineCode adotout1.bin
+Main: Ending execution

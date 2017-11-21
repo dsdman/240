@@ -1,0 +1,49 @@
+Main: Beginning execution
+Main: logfile 'MYFIBLOG.txt'
+
+
+PASS ONE
+
+
+PASS TWO
+    0                                            *23 567 9 123 56789 1
+    1                                            *ll mmm a sss hhhhh * comment
+    2 xxxx xxxx xxxx xxxx ...    LD    IDX ..... * load ACC with value at IDX
+    3 xxxx xxxx xxxx xxxx ...    ADD   STO ..... * add loop value to initial address
+    4 xxxx xxxx xxxx xxxx ...    STC   STO ..... * store that address at STO
+    5                                            *
+    6 xxxx xxxx xxxx xxxx TOP    LD    BB1 ..... * load ACC with value at BB1
+    7 xxxx xxxx xxxx xxxx ...    STC   TMP ..... * store that value at TMP
+    8 xxxx xxxx xxxx xxxx ...    LD    BB1 ..... * reload ACC with value at BB1
+    9 xxxx xxxx xxxx xxxx ...    ADD   AA1 ..... * add in value at AA1
+   10 xxxx xxxx xxxx xxxx ...    WRT   ... ..... * write the new Fib number
+   11 xxxx xxxx xxxx xxxx ...    STC * STO ..... * store ACC where STO is pointing to
+   12 xxxx xxxx xxxx xxxx ...    LD  * STO ..... * load ACC from where STO is pointing to
+   13 xxxx xxxx xxxx xxxx ...    STC   BB1 ..... * store ACC where STO is pointing to
+   14 xxxx xxxx xxxx xxxx ...    LD    TMP ..... * load the old BB1 from TMP
+   15 xxxx xxxx xxxx xxxx ...    STC   AA1 ..... * store ACC where STO is pointing to
+   16                                            *
+   17 xxxx xxxx xxxx xxxx ...    LD    IDX ..... * reload ACC with the counter
+   18 xxxx xxxx xxxx xxxx ...    ADD   ONE ..... * increment counter
+   19 xxxx xxxx xxxx xxxx ...    STC   IDX ..... * store this new address at STO
+   20 xxxx xxxx xxxx xxxx ...    LD    STO ..... * load our pointer
+   21 xxxx xxxx xxxx xxxx ...    ADD   ONE ..... * increment by one
+   22 xxxx xxxx xxxx xxxx ...    STC   STO ..... * store it back
+   23 xxxx xxxx xxxx xxxx ...    LD    IDX ..... * reload ACC with the counter
+   24 xxxx xxxx xxxx xxxx ...    BAN   TOP ..... * loop until done
+   25 xxxx xxxx xxxx xxxx ...    STP   ... .....
+   26                                            *
+   27 xxxx xxxx xxxx xxxx ONE    HEX   ... +0001 * we need a constant 1
+   28 xxxx xxxx xxxx xxxx IDX    HEX   ... -0005 * loop index
+   29 xxxx xxxx xxxx xxxx AA1    HEX   ... +0008 * smaller of two values to add 
+   30 xxxx xxxx xxxx xxxx BB1    HEX   ... +000D * larger of two values to add
+   31 xxxx xxxx xxxx xxxx TMP    DS    ... +0001 * temp storage
+   32 xxxx xxxx xxxx xxxx STO    HEX   ... +0028 * address in SSS at which to store
+   33 xxxx xxxx xxxx xxxx ...    ORG   ... +0028 * set PC location for SSS at +0020 
+   34 xxxx xxxx xxxx xxxx SSS    DS    ... +0010
+   35 xxxx xxxx xxxx xxxx ...    END   ... .....
+
+SYMBOL TABLE
+    SYM LOC FLAGS
+
+Main: Ending execution

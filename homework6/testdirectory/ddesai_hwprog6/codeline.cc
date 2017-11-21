@@ -58,13 +58,6 @@ string CodeLine::GetErrorMessages() const {
 }
 
 /******************************************************************************
- * Accessor for the 'error_messages_'.
-**/
-int CodeLine::GetPC() const {
-  return pc_;
-}
-
-/******************************************************************************
  * Accessor for the 'hex_'.
 **/
 Hex CodeLine::GetHexObject() const {
@@ -232,8 +225,8 @@ string CodeLine::ToString() const
 
   s += Utils::Format(linecounter_, 5) + " ";
 
-  s += Utils::Format(pc_, 4) + "  ";
-  s += globals_.DecToBitString(pc_, 12) + " ";
+  //s += Utils::Format(pc_, 4) + "  ";
+  //s += globals_.DecToBitString(pc_, 12) + " ";
 
   if (code_ == "nullcode") {
   //if (code_ != "nullcode") {
