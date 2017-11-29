@@ -72,6 +72,11 @@ int Symbol::GetLocation() const {
  * Accessor for the existence of errors.
 **/
 bool Symbol::HasAnError() const {
+  //if (is_invalid_) {
+  //  cout << "it is invalid" << endl;
+  //} else {
+  //  cout << "it is multiply" << endl;
+  //}
   return (is_invalid_ || is_multiply_);
 }
 
@@ -94,6 +99,10 @@ void Symbol::SetMultiply() {
 bool Symbol::CheckInvalid() const {
   bool returnvalue = false; // false means no, not invalid
 
+  //return true if symbol is not 3 chars long or begins with a number
+  if (text_.size() != 3 || isdigit(text_.at(0))) {
+    returnvalue = true;
+  }
   return returnvalue;
 }
 

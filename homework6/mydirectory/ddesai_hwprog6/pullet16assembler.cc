@@ -44,7 +44,8 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
   string line = "dummyline";
   int linecounter = 0;
   CodeLine temp;
-  int pc = 0;
+  int pc = -1;
+  maxpc_ = -1;
   //output variable
   vector<CodeLine> out;
 
@@ -69,8 +70,9 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
         temp.SetCommentsOnly(linecounter, line);
         out.push_back(temp);
       } else {
-        //increment program counter
+        //increment program counters
         ++pc;
+        ++maxpc_;
 
         //get the label
         label = line.substr(0,3);
@@ -112,10 +114,6 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
             }
 		      }
         }
-        //cout << "(lc) " << linecounter << " (pc) " << pc << " (label) " 
-        //     << label << " (mnemonic) " << mnemonic << " (addr) " << addr
-        //     << " (symoperand) " << symoperand << " (hex) " << hexoperand
-        //     << " (comments) " << comments << " (code) " << code << endl;
 
         //put together the codeline
         temp.SetCodeLine(linecounter, pc, label, mnemonic, addr, symoperand, hexoperand, comments, code);
@@ -147,34 +145,19 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
   // Pass one
   // Produce the symbol table and detect errors in symbols.
   Utils::log_stream << endl << endl << "PASS ONE" << endl;
-  //temporary label variable
-  string label = "";
-
-  //for each codeline with a symbol, add it to the symbol table
-  for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
-    //map<string, Symbol> symboltable_;
-    if ( (*iter).GetLabel() != "nulllabel") {
-      label = (*iter).GetLabel();
-      Symbol temp(label, (*iter).GetPC() );
-      symboltable_.insert(pair<string, Symbol>(label, temp) );
-    }
-  }
-
-  //print symbol table
-  cout << "SYMBOL TABLE: " << endl;
-  for (auto& x: symboltable_) {
-    cout << x.first << ": " << x.second.ToString() << endl;
-  }
+  this->PassOne(in_scanner);
 
   ////////////////////////////////////////////////////////////////////////////
   // Pass two
   // Generate the machine code.
   Utils::log_stream << endl << endl << "PASS TWO" << endl;
+  this->PassTwo();
 
   ////////////////////////////////////////////////////////////////////////////
   // Dump the results.
   cout << "\nAS 'CODELINES:' " << endl;
   this->PrintCodeLines();
+  cout << "\nSymbol TABLE: " << endl;
   this->PrintSymbolTable();
 
 #ifdef EBUG
@@ -243,6 +226,30 @@ void Assembler::PassOne(Scanner& in_scanner) {
   Utils::log_stream << "enter PassOne\n"; 
 #endif
 
+  //temporary label variable
+  string label = "";
+
+  //for each codeline with a symbol, add it to the symbol table
+  //map<string, Symbol> symboltable_;
+  for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
+    if ( (*iter).GetLabel() != "nulllabel") {
+      label = (*iter).GetLabel();
+      Symbol temp(label, (*iter).GetPC() );
+
+      //if it is multiply defined, set the boolean and don't insert it
+      if (symboltable_.count(label) > 0) {
+        symboltable_[label].SetMultiply();
+      } else {
+        symboltable_[label] = temp;
+      }
+    }
+  }
+
+  //print symbol table
+  cout << "SYMBOL TABLE: " << endl;
+  for (auto& x: symboltable_) {
+    cout << x.first << ": " << x.second.ToString() << endl;
+  }
 #ifdef EBUG
   Utils::log_stream << "leave PassOne\n"; 
 #endif
@@ -256,6 +263,126 @@ void Assembler::PassTwo() {
 #ifdef EBUG
   Utils::log_stream << "enter PassTwo\n"; 
 #endif
+  //temporary variable to hold machinecode
+  string code = "";
+  //map<int, string> machinecode_;
+  
+  //TODO check for valid mnemonics, and generate machine mode
+  //handle pseudo-op codes like ORG as well
+  for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
+    //generate machine code based off of mnemonics
+    if ( (*iter).GetMnemonic() == "RD " || (*iter).GetMnemonic() == "RD") {
+      code += "1110000000000001";
+    } else if ( (*iter).GetMnemonic() == "STP") {
+      code += "1110000000000010";
+    } else if ( (*iter).GetMnemonic() == "WRT") {
+      code += "1110000000000011";
+    } else if ( (*iter).GetMnemonic() == "BAN") {
+      //add opcode
+      code += "000";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "SUB") {
+      //add opcode
+      code += "001";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "STC") {
+      //add opcode
+      code += "010";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "AND") {
+      //add opcode
+      code += "011";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "ADD") {
+      //add opcode
+      code += "100";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "LD ") {
+      //add opcode
+      code += "101";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "BR ") {
+      //add opcode
+      code += "110";
+      //add addressing bit
+      if ( (*iter).GetAddr() == "*") {
+        code += "1";
+      } else {
+        code += "0";
+      }
+      //add location of target
+      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+    } else if ( (*iter).GetMnemonic() == "ORG") {
+      //set PC to value of Operand
+      cout << "HASORG" << endl;
+    } else if ( (*iter).GetMnemonic() == "HEX") {
+      //temporary Hex variable
+      Hex temp = (*iter).GetHexObject();
+
+      //Define a constant to be stored at the current PC location
+      code += globals_.DecToBitString(temp.GetValue(), 16);
+    } else if ( (*iter).GetMnemonic() == "DS ") {
+      //define storage of N words starting at current PC location
+
+    } else if ( (*iter).GetMnemonic() == "END") {
+      //End of input
+    } else {
+      //invalid mnemonic
+      if ( !( (*iter).IsAllComment()) ) {
+        cout << "mnemonic is blank or not valid" << endl;
+      }
+    }
+    //GetSymOperand()
+    //cout << "M: " << (*iter).GetMnemonic() << " PC: " << (*iter).GetPC() << " C: " << code << " L: " << code.size() << endl;
+
+    //set the value of code for the codeline
+    (*iter).SetMachineCode(code);
+
+    //reset code for next line
+    code = "";
+  }
 
 #ifdef EBUG
   Utils::log_stream << "leave PassTwo\n"; 
@@ -305,29 +432,6 @@ void Assembler::PrintMachineCode(string binary_filename, ofstream& out_stream) {
   string s = "";
   Utils::log_stream << "enter PrintMachineCode" << " " << binary_filename << endl; 
   cout << "machine code:" << endl;
-  std::ifstream input (binary_filename, std::ifstream::binary);
-  short byte1 = 0;
-  short byte2 = 0;
-  int size_binary = 0;
-  char* buffer2; 
-
-  if (input) {
-    input.seekg (0, input.end);
-    size_binary = input.tellg() / 2; //half since we are going to read a byte
-    input.seekg (0, input.beg);
-  }
-  if (input) {
-    buffer2 = new char [1];
-    for (int i = 0; i < size_binary; ++i) {
-      input.read(buffer2, 1); // read character
-      byte1 = *buffer2;      // dereference
-      input.read(buffer2, 1);
-      byte2 = *buffer2;
-      //printf("SHORT %2d %2d    %4d\n", buffer2[0], byte1, byte2);
-      printf("SHORT %2d %2d    %4d\n", byte1, byte2);
-    }
-  }
-  input.close();
 
 #ifdef EBUG
   Utils::log_stream << "leave PrintMachineCode" << endl; 

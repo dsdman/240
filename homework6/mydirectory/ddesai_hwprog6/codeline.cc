@@ -199,6 +199,10 @@ void CodeLine::SetErrorMessages(string messages) {
  *   code - the code to set
 **/
 void CodeLine::SetMachineCode(string code) {
+  //cout << "FUCK ME HARDER DADDY: " << code << " Siz: " << code.size() << endl;
+  if (code.size() == 16) {
+    code_ = code;
+  }
 }
 
 /******************************************************************************
