@@ -149,6 +149,13 @@ void CodeLine::SetCodeLine(int linecounter, int pc, string label,
   label_ = label;
   mnemonic_ = mnemonic;
   addr_ = addr;
+  if (symoperand.size() < 3) {
+    if (symoperand.size() == 1) {
+      symoperand += "  ";
+    } else {
+      symoperand += " ";
+    }
+  }
   symoperand_ = symoperand;
   Hex temp(hexoperand, globals_);
   hex_ = temp;
@@ -213,6 +220,7 @@ void CodeLine::SetMachineCode(string code) {
  *   what - the value to set as the PC
 **/
 void CodeLine::SetPC(int what) {
+  pc_ = what;
 }
 
 /******************************************************************************

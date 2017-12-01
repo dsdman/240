@@ -56,10 +56,11 @@ class Assembler {
     void PassTwo();
     void PrintCodeLines();
     void PrintMachineCode(string binary_filename, ofstream& out_stream);
-    void PrintSymbolTable();
+    //void PrintSymbolTable(); I DON'T NEED THIS SINCE I DID THIS IN 'PassOne'
     void SetNewPC(CodeLine codeline);
     void UpdateSymbolTable(int programcounter, string label);
     vector<CodeLine> GetCode(Scanner& in_scanner);
+    string MakeCode(CodeLine line, string opcode);
     Globals globals_;
 
 };

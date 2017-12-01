@@ -137,7 +137,8 @@ void Hex::ParseHexOperand() {
 
     is_negative_ = false;
     if (char0 == '-') {
-      value_ = 65536 - value_;
+      //value_ = 65536 - value_;
+      value_ = 0 - value_;
       is_negative_ = true;
     } else if (char0 != '+') {
       value_ = 0;

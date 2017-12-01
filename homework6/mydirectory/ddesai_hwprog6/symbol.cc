@@ -100,6 +100,7 @@ bool Symbol::CheckInvalid() const {
   bool returnvalue = false; // false means no, not invalid
 
   //return true if symbol is not 3 chars long or begins with a number
+  //cout << "SIZE OF THE DINGUS: " << text_.size() << endl;
   if (text_.size() != 3 || isdigit(text_.at(0))) {
     returnvalue = true;
   }

@@ -37,12 +37,11 @@ Assembler::~Assembler() {
  *
  * Parameters:
  *  in_scanner - the scanner to read for source code
- *
 **/
 vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
   //temporary variables to create instance of 'CodeLine'
   string line = "dummyline";
-  int linecounter = 0;
+  int linecounter = 1;
   CodeLine temp;
   int pc = -1;
   maxpc_ = -1;
@@ -116,7 +115,8 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
         }
 
         //put together the codeline
-        temp.SetCodeLine(linecounter, pc, label, mnemonic, addr, symoperand, hexoperand, comments, code);
+        temp.SetCodeLine(linecounter, pc, label, mnemonic, addr, 
+                         symoperand, hexoperand, comments, code);
         out.push_back(temp);
       }
     }
@@ -157,8 +157,7 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
   // Dump the results.
   cout << "\nAS 'CODELINES:' " << endl;
   this->PrintCodeLines();
-  cout << "\nSymbol TABLE: " << endl;
-  this->PrintSymbolTable();
+  //this->PrintSymbolTable(); I DON'T NEED THIS SINCE I DID THIS IN 'PassOne'
 
 #ifdef EBUG
   Utils::log_stream << "leave Assemble\n"; 
@@ -174,8 +173,7 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
  *   symbol - the symbol that is invalid
 **/
 string Assembler::GetInvalidMessage(string leadingtext, string symbol) {
-
-  string returnvalue = "";
+  string returnvalue = "Value " + symbol + " is an invalid " + leadingtext;
 
   return returnvalue;
 }
@@ -189,8 +187,7 @@ string Assembler::GetInvalidMessage(string leadingtext, string symbol) {
  *   hex - the hex operand that is invalid
 **/
 string Assembler::GetInvalidMessage(string leadingtext, Hex hex) {
-
-  string returnvalue = "";
+  string returnvalue = "Value " + hex.ToString() + " is an invalid " + leadingtext;
 
   return returnvalue;
 }
@@ -203,8 +200,7 @@ string Assembler::GetInvalidMessage(string leadingtext, Hex hex) {
  *   badtext - the undefined symbol text
 **/
 string Assembler::GetUndefinedMessage(string badtext) {
-  string returnvalue = "";
-
+  string returnvalue = "Symbol " + badtext + " is undefined";
   return returnvalue;
 }
 
@@ -239,6 +235,7 @@ void Assembler::PassOne(Scanner& in_scanner) {
       //if it is multiply defined, set the boolean and don't insert it
       if (symboltable_.count(label) > 0) {
         symboltable_[label].SetMultiply();
+        has_an_error_ = true;
       } else {
         symboltable_[label] = temp;
       }
@@ -247,12 +244,59 @@ void Assembler::PassOne(Scanner& in_scanner) {
 
   //print symbol table
   cout << "SYMBOL TABLE: " << endl;
+  Utils::log_stream << "SYMBOL TABLE:\n";
+
   for (auto& x: symboltable_) {
     cout << x.first << ": " << x.second.ToString() << endl;
+    Utils::log_stream << x.first << ": "  << x.second.ToString() + "\n";
   }
 #ifdef EBUG
   Utils::log_stream << "leave PassOne\n"; 
 #endif
+}
+
+/******************************************************************************
+ * Function 'MakeCode'.
+ * Helper function for PassTwo that generates code for opcodes of type 1
+ *
+ * Returns: The machine code for opcode of type 1
+ *
+ * Parameters:
+ *  line: the codeline to generate the machinecode for
+ *  opcode: the 3-digit string representation of the opcode
+**/
+string Assembler::MakeCode(CodeLine line, string opcode) {
+  //stop if symbol is not in symbol table
+  if (symboltable_.find(line.GetSymOperand() ) == symboltable_.end() ) {
+    cout << this->GetUndefinedMessage(line.GetSymOperand() ) << endl;
+    has_an_error_ = true;
+    return "";
+  }
+
+  //ouput variable and temporary variable to hold location of target 
+  string code = "";
+  int temp = 0;
+
+  //add opcode if its size is 3 and get location of target
+  if (opcode.size() == 3) {
+    code += opcode;
+  } else {
+    has_an_error_ = true;
+    return "";
+  }
+  temp = symboltable_[ line.GetSymOperand()].GetLocation();
+  //cout << "DEC: " << temp << " SYMBOL: " << line.GetSymOperand() << endl;
+
+  //add addressing bit
+  if (line.GetAddr() == "*") {
+    code += "1";
+  } else {
+    code += "0";
+  }
+
+  //add location of target and return the code
+  code += globals_.DecToBitString(temp, 12);
+  return code;
 }
 
 /******************************************************************************
@@ -267,10 +311,7 @@ void Assembler::PassTwo() {
   string code = "";
   //map<int, string> machinecode_;
   
-  //TODO check for valid mnemonics, and generate machine mode
-  //handle pseudo-op codes like ORG as well
   for (auto iter = codelines_.begin(); iter != codelines_.end(); ++iter) {
-    //generate machine code based off of mnemonics
     if ( (*iter).GetMnemonic() == "RD " || (*iter).GetMnemonic() == "RD") {
       code += "1110000000000001";
     } else if ( (*iter).GetMnemonic() == "STP") {
@@ -278,90 +319,27 @@ void Assembler::PassTwo() {
     } else if ( (*iter).GetMnemonic() == "WRT") {
       code += "1110000000000011";
     } else if ( (*iter).GetMnemonic() == "BAN") {
-      //add opcode
-      code += "000";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "000");
     } else if ( (*iter).GetMnemonic() == "SUB") {
-      //add opcode
-      code += "001";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "001");
     } else if ( (*iter).GetMnemonic() == "STC") {
-      //add opcode
-      code += "010";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "010");
     } else if ( (*iter).GetMnemonic() == "AND") {
-      //add opcode
-      code += "011";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "011");
     } else if ( (*iter).GetMnemonic() == "ADD") {
-      //add opcode
-      code += "100";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "100");
     } else if ( (*iter).GetMnemonic() == "LD ") {
-      //add opcode
-      code += "101";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "101");
     } else if ( (*iter).GetMnemonic() == "BR ") {
-      //add opcode
-      code += "110";
-      //add addressing bit
-      if ( (*iter).GetAddr() == "*") {
-        code += "1";
-      } else {
-        code += "0";
-      }
-      //add location of target
-      code += globals_.DecToBitString(symboltable_[ (*iter).GetSymOperand()].GetLocation(), 12);
+      code = this->MakeCode( (*iter), "110");
+    //TODO handle pseudo-op codes 'ORG'  and 'DS'
     } else if ( (*iter).GetMnemonic() == "ORG") {
-      //set PC to value of Operand
-      cout << "HASORG" << endl;
+      //Change the pc value
+      this->SetNewPC( (*iter));
+
     } else if ( (*iter).GetMnemonic() == "HEX") {
       //temporary Hex variable
       Hex temp = (*iter).GetHexObject();
-
-      //Define a constant to be stored at the current PC location
       code += globals_.DecToBitString(temp.GetValue(), 16);
     } else if ( (*iter).GetMnemonic() == "DS ") {
       //define storage of N words starting at current PC location
@@ -371,11 +349,13 @@ void Assembler::PassTwo() {
     } else {
       //invalid mnemonic
       if ( !( (*iter).IsAllComment()) ) {
-        cout << "mnemonic is blank or not valid" << endl;
+        cout << this->GetInvalidMessage("mnemonic", (*iter).GetMnemonic() ) 
+             << endl;
+        has_an_error_ = true;
       }
     }
-    //GetSymOperand()
-    //cout << "M: " << (*iter).GetMnemonic() << " PC: " << (*iter).GetPC() << " C: " << code << " L: " << code.size() << endl;
+    //cout << "M: " << (*iter).GetMnemonic() << " PC: " << (*iter).GetPC() 
+    //     << " C: " << code << " L: " << code.size() << endl; DEBUG
 
     //set the value of code for the codeline
     (*iter).SetMachineCode(code);
@@ -441,7 +421,6 @@ void Assembler::PrintMachineCode(string binary_filename, ofstream& out_stream) {
 /******************************************************************************
  * Function 'PrintSymbolTable'.
  * This function prints the symbol table.
-**/
 void Assembler::PrintSymbolTable() {
 #ifdef EBUG
   Utils::log_stream << "enter PrintSymbolTable\n"; 
@@ -453,6 +432,7 @@ void Assembler::PrintSymbolTable() {
 #endif
   Utils::log_stream << s << endl;
 }
+**/
 
 /******************************************************************************
  * Function 'SetNewPC'.
@@ -467,7 +447,17 @@ void Assembler::SetNewPC(CodeLine codeline) {
 #ifdef EBUG
   Utils::log_stream << "enter SetNewPC\n"; 
 #endif
+  //have to do Hex > int
+  Hex hex = codeline.GetHexObject();
+  int value = hex.GetValue();
 
+  //set PC to value of Operand if it is not invalid
+  if (value < 0) {
+    this->GetUndefinedMessage("Value of " + to_string(value) + " is invalid");
+    this->has_an_error_ = true;
+  }
+  codeline.SetPC(value);
+  cout << "THING: " << codeline.GetPC() << " VAL: " << value << endl;
 #ifdef EBUG
   Utils::log_stream << "leave SetNewPC\n"; 
 #endif
@@ -479,9 +469,6 @@ void Assembler::SetNewPC(CodeLine codeline) {
  * Note that there is a hack here, in that the default value is 0
  * and that would mean we can't store a symbol at location zero.
  * So we add one, and then back that out after the full first pass is done.
- *
- * Returns:
- *   the prettyprint string for printing
 **/
 void Assembler::UpdateSymbolTable(int pc, string symboltext) {
 #ifdef EBUG

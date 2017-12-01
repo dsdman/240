@@ -5,7 +5,7 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
 ASSEMBLER_H	pullet16assembler.h	11;"	d
-Assemble	pullet16assembler.cc	/^void Assembler::Assemble(Scanner& in_scanner, string binary_filename, ofstream& out_stream) {$/;"	f	class:Assembler
+Assemble	pullet16assembler.cc	/^void Assembler::Assemble(Scanner& in_scanner, string binary_filename, $/;"	f	class:Assembler
 Assembler	pullet16assembler.cc	/^Assembler::Assembler() {$/;"	f	class:Assembler
 Assembler	pullet16assembler.h	/^class Assembler {$/;"	c
 BitStringToDec	globals.cc	/^int Globals::BitStringToDec(const string thebits) const {$/;"	f	class:Globals
@@ -29,6 +29,7 @@ GetInvalidMessage	pullet16assembler.cc	/^string Assembler::GetInvalidMessage(str
 GetLabel	codeline.cc	/^string CodeLine::GetLabel() const {$/;"	f	class:CodeLine
 GetLocation	symbol.cc	/^int Symbol::GetLocation() const {$/;"	f	class:Symbol
 GetMnemonic	codeline.cc	/^string CodeLine::GetMnemonic() const {$/;"	f	class:CodeLine
+GetPC	codeline.cc	/^int CodeLine::GetPC() const {$/;"	f	class:CodeLine
 GetSymOperand	codeline.cc	/^string CodeLine::GetSymOperand() const {$/;"	f	class:CodeLine
 GetText	hex.cc	/^string Hex::GetText() const {$/;"	f	class:Hex
 GetUndefinedMessage	pullet16assembler.cc	/^string Assembler::GetUndefinedMessage(string badtext) {$/;"	f	class:Assembler
@@ -47,12 +48,12 @@ IsNegative	hex.cc	/^bool Hex::IsNegative() const {$/;"	f	class:Hex
 IsNotNull	hex.cc	/^bool Hex::IsNotNull() const {$/;"	f	class:Hex
 IsNull	hex.cc	/^bool Hex::IsNull() const {$/;"	f	class:Hex
 MAIN_H	main.h	10;"	d
+MakeCode	pullet16assembler.cc	/^string Assembler::MakeCode(CodeLine line, string opcode) {$/;"	f	class:Assembler
 ParseHexOperand	hex.cc	/^void Hex::ParseHexOperand() {$/;"	f	class:Hex
 PassOne	pullet16assembler.cc	/^void Assembler::PassOne(Scanner& in_scanner) {$/;"	f	class:Assembler
 PassTwo	pullet16assembler.cc	/^void Assembler::PassTwo() {$/;"	f	class:Assembler
 PrintCodeLines	pullet16assembler.cc	/^void Assembler::PrintCodeLines() {$/;"	f	class:Assembler
 PrintMachineCode	pullet16assembler.cc	/^void Assembler::PrintMachineCode(string binary_filename, ofstream& out_stream) {$/;"	f	class:Assembler
-PrintSymbolTable	pullet16assembler.cc	/^void Assembler::PrintSymbolTable() {$/;"	f	class:Assembler
 SYMBOL_H	symbol.h	11;"	d
 SetCodeLine	codeline.cc	/^void CodeLine::SetCodeLine(int linecounter, int pc, string label,$/;"	f	class:CodeLine
 SetCommentsOnly	codeline.cc	/^void CodeLine::SetCommentsOnly(int linecounter, string line) {$/;"	f	class:CodeLine
