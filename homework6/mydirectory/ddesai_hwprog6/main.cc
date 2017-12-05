@@ -5,7 +5,7 @@
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Used with permission and modified by: Dylan Desai
- * Date: 13 Nov 2017
+ * Date: 04 DEC 2017
  *
  * Note that all file names are entered without extensions.
 **/
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
   Utils::CheckArgs(3, argc, argv, "infilename outfilename logfilename");
   in_filename = static_cast<string>(argv[1]) + ".txt";
   binary_filename = static_cast<string>(argv[2]) + ".bin";
-  out_filename = static_cast<string>(argv[2]) + ".txt";
+  out_filename = static_cast<string>(argv[2]) + ".bin";//changed to .bin
   log_filename = static_cast<string>(argv[3]) + ".txt";
 
   Utils::LogFileOpen(log_filename);

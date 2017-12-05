@@ -6,7 +6,7 @@
  *
  * Author: Duncan A. Buell
  * Used with permission and modified by: Dylan Desai
- * Date: 13 Nov 2017
+ * Date: 04 Dec 2017
 **/
 
 /******************************************************************************
@@ -15,6 +15,36 @@
 Assembler::Assembler() {
   globals_ = Globals();
 
+  mnemonics_.insert("ADD");
+  mnemonics_.insert("AND");
+  mnemonics_.insert("BAN");
+  mnemonics_.insert("BR "); // need the blank space
+  mnemonics_.insert("LD "); // need the blank space
+  mnemonics_.insert("STC");
+  mnemonics_.insert("SUB");
+  mnemonics_.insert("RD "); // need the blank space
+  mnemonics_.insert("STP");
+  mnemonics_.insert("WRT");
+//  mnemonics_.insert("DS "); // need the blank space
+//  mnemonics_.insert("HEX");
+//  mnemonics_.insert("ORG");
+//  mnemonics_.insert("END");
+
+  opcodes_["ADD"] = "100x            ";
+  opcodes_["AND"] = "011x            ";
+  opcodes_["BAN"] = "000x            ";
+  opcodes_["BR "] = "110x            ";
+  opcodes_["LD "] = "101x            ";
+  opcodes_["STC"] = "010x            ";
+  opcodes_["SUB"] = "001x            ";
+  opcodes_["RD "] = "1110000000000001";
+  opcodes_["STP"] = "1110000000000010";
+  opcodes_["WRT"] = "1110000000000011";
+
+  for (int linesub = 0; linesub < globals_.kMaxMemory; ++linesub) {
+    machinecode_[linesub] = kDummyCodeA;
+  }
+  has_an_error_ = false;
 }
 
 /******************************************************************************
@@ -101,7 +131,7 @@ vector<CodeLine> Assembler::GetCode(Scanner& in_scanner) {
           //get the hex operand
           if (line.size() > 13) {
             hexoperand = line.substr(14,5);
-            if (hexoperand == "    ") {
+            if (hexoperand == "     ") {
               hexoperand = "     ";
             }
           }
@@ -158,6 +188,7 @@ void Assembler::Assemble(Scanner& in_scanner, string binary_filename,
   cout << "\nAS 'CODELINES:' " << endl;
   this->PrintCodeLines();
   //this->PrintSymbolTable(); I DON'T NEED THIS SINCE I DID THIS IN 'PassOne'
+  this->PrintMachineCode(binary_filename, out_stream);
 
 #ifdef EBUG
   Utils::log_stream << "leave Assemble\n"; 
@@ -234,6 +265,7 @@ void Assembler::PassOne(Scanner& in_scanner) {
 
       //if it is multiply defined, set the boolean and don't insert it
       if (symboltable_.count(label) > 0) {
+        //cout << "FOUND THE ERROR" << endl;
         symboltable_[label].SetMultiply();
         has_an_error_ = true;
       } else {
@@ -268,6 +300,7 @@ void Assembler::PassOne(Scanner& in_scanner) {
 string Assembler::MakeCode(CodeLine line, string opcode) {
   //stop if symbol is not in symbol table
   if (symboltable_.find(line.GetSymOperand() ) == symboltable_.end() ) {
+    //cout << "FOUND THE ERRROR" << endl;
     cout << this->GetUndefinedMessage(line.GetSymOperand() ) << endl;
     has_an_error_ = true;
     return "";
@@ -281,6 +314,7 @@ string Assembler::MakeCode(CodeLine line, string opcode) {
   if (opcode.size() == 3) {
     code += opcode;
   } else {
+    //cout << "FOUND the error" << endl;
     has_an_error_ = true;
     return "";
   }
@@ -332,23 +366,60 @@ void Assembler::PassTwo() {
       code = this->MakeCode( (*iter), "101");
     } else if ( (*iter).GetMnemonic() == "BR ") {
       code = this->MakeCode( (*iter), "110");
-    //TODO handle pseudo-op codes 'ORG'  and 'DS'
     } else if ( (*iter).GetMnemonic() == "ORG") {
-      //Change the pc value
-      this->SetNewPC( (*iter));
+      //temporary hex and integer variables for 'orging'
+      Hex temp = (*iter).GetHexObject();
+      int value = temp.GetValue();
 
+      //Change the pc values
+      for (auto iter1 = iter; iter1 != codelines_.end(); ++iter1) {
+        (*iter1).SetPC(value);
+        value += 1;
+      }
     } else if ( (*iter).GetMnemonic() == "HEX") {
       //temporary Hex variable
       Hex temp = (*iter).GetHexObject();
       code += globals_.DecToBitString(temp.GetValue(), 16);
     } else if ( (*iter).GetMnemonic() == "DS ") {
+      //temporary hex and integer variables for 'orging'
+      Hex temp = (*iter).GetHexObject();
+      int value = temp.GetValue();
+      int start_pc = (*iter).GetPC();
+      int term = (*iter).GetPC() + value;
+      
+      /*
       //define storage of N words starting at current PC location
+      for (int i = start_pc; i < term && iter != codelines_.end(); ++i) {
+        //do some debugging shit here
+        cout << "PC: " << start_pc << " VAL: " << value 
+             << " TERMINATE AT: " << term << endl;
 
+        //create codeline, insert it, and increment iter 
+        CodeLine temp_code;
+        temp_code.SetCodeLine(0, start_pc + 1, "nulllabel", "nullmnemonic",
+                              "", "nullsymoperand", "     ", "nullcomments", 
+                              kDummyCodeC);
+        cout << "inserting " << temp_code.ToString() << endl;
+        if (iter != codelines_.end() && iter+1 != codelines_.end() ) {
+          codelines_.insert(iter+1, temp_code);
+          ++iter;
+          ++start_pc;
+        } else {
+          cout << "IT IS TRUE." << endl;
+        }
+
+        cout <<  "VEC: " << endl;
+        for (auto iter1 = codelines_.begin(); iter1 != codelines_.end(); ++iter1) {
+          cout << (*iter).ToString() << endl;
+        }
+      }*/
+      
     } else if ( (*iter).GetMnemonic() == "END") {
       //End of input
     } else {
       //invalid mnemonic
       if ( !( (*iter).IsAllComment()) ) {
+        //cout << "FOUND THE ERROR";
         cout << this->GetInvalidMessage("mnemonic", (*iter).GetMnemonic() ) 
              << endl;
         has_an_error_ = true;
@@ -362,6 +433,22 @@ void Assembler::PassTwo() {
 
     //reset code for next line
     code = "";
+  }
+
+  //populate map with machine code based on pc
+  for (auto iter2 = codelines_.begin(); iter2 !=codelines_.end(); ++iter2) {
+    if ( (*iter2).IsAllComment() != true && (*iter2).GetMnemonic() != "END" && 
+         (*iter2).GetMnemonic() != "DS ") {
+      //temporary values
+      int current_pc = 0;
+      string current_code = "";
+
+      //assign the values for the machine code map
+      current_pc = (*iter2).GetPC();
+      current_code = (*iter2).GetCode();
+      machinecode_[current_pc] = current_code;
+      maxpc_ = current_pc;
+    }
   }
 
 #ifdef EBUG
@@ -386,6 +473,7 @@ void Assembler::PrintCodeLines() {
   }
 
   if (!found_end_statement_) {
+    //cout << "FOUND THE ERROR" << endl;
     s += "\n***** ERROR -- NO 'END' STATEMENT\n";
     has_an_error_ = true;
   }
@@ -409,9 +497,40 @@ void Assembler::PrintCodeLines() {
 void Assembler::PrintMachineCode(string binary_filename, ofstream& out_stream) {
 #ifdef EBUG
 #endif
-  string s = "";
   Utils::log_stream << "enter PrintMachineCode" << " " << binary_filename << endl; 
   cout << "machine code:" << endl;
+  if (!has_an_error_) {
+    //create a vector with machine code to print
+    vector<string> the_code;
+    for (auto iter = machinecode_.begin(); iter != machinecode_.end(); ++iter) {
+      if ( !(iter -> first > maxpc_)) {
+        if ( iter -> second == "nullcode") {
+          iter -> second = kDummyCodeA;
+        }
+        the_code.push_back(iter -> second);
+        cout << iter -> first << " -> " << iter -> second << endl;
+      } else {
+        //stop if we reach the max pc
+        break;
+      }
+    }
+
+    //code taken from homework 5
+    if (out_stream) {
+      char* buffer = new char[8];
+      for (short i =0; i <= maxpc_; ++i) {
+        if (the_code.at(i) == "nullcode") {
+          the_code.at(i) == kDummyCodeA;
+        }
+        short ref = static_cast<short>(globals_.BitStringToDec(the_code.at(i)));
+        buffer = reinterpret_cast<char*>(&ref);
+        out_stream.write(buffer, 2);
+      }
+      out_stream.close();
+    }
+  } else {
+    cout << "One or more errors have occured with the assembly code." << endl;
+  }
 
 #ifdef EBUG
   Utils::log_stream << "leave PrintMachineCode" << endl; 
@@ -453,6 +572,7 @@ void Assembler::SetNewPC(CodeLine codeline) {
 
   //set PC to value of Operand if it is not invalid
   if (value < 0) {
+    //cout << "FOUND THE ERROR" << endl;
     this->GetUndefinedMessage("Value of " + to_string(value) + " is invalid");
     this->has_an_error_ = true;
   }

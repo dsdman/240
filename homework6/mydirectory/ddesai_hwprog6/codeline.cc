@@ -6,7 +6,7 @@
  *
  * Author: Duncan A. Buell
  * Used with permission and modified by: Dylan Desai
- * Date: 13 Nov 2017
+ * Date: 04 Dec 2017
 **/
 
 /******************************************************************************
@@ -206,7 +206,6 @@ void CodeLine::SetErrorMessages(string messages) {
  *   code - the code to set
 **/
 void CodeLine::SetMachineCode(string code) {
-  //cout << "FUCK ME HARDER DADDY: " << code << " Siz: " << code.size() << endl;
   if (code.size() == 16) {
     code_ = code;
   }
@@ -236,11 +235,6 @@ string CodeLine::ToString() const
   Utils::log_stream << "enter ToString\n"; 
 #endif
   string s = "";
-
-  //cout << "(lc) " << linecounter_ << " (pc) " << pc_ << " (label) " 
-  //     << label_ << " (mnemonic) " << mnemonic_ << " (addr) " << addr_
-  //     << " (symoperand) " << symoperand_ << " (hex) " << hex_.ToString() << " " << hex_.IsNotNull()
-  //     << " (comments) " << comments_ << " (code) " << code_ << endl;
 
   s += Utils::Format(linecounter_, 5) + " ";
 
